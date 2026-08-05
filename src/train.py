@@ -17,12 +17,16 @@ from model import TrafficSignCNN
 # ── Paths ──────────────────────────────────────────────────────────────────────
 parser = argparse.ArgumentParser()
 parser.add_argument('--data_dir', type=str, default=os.path.join("data", "Indian_Dataset"), help='Path to dataset images folder')
+parser.add_argument('--pretrained_path', type=str, default=None, help='Path to pretrained GTSRB model checkpoint (.pth)')
 args = parser.parse_args()
 
 DATA_DIR   = args.data_dir
 MODEL_DIR  = "models"
-MODEL_PATH = os.path.join(MODEL_DIR, "traffic_sign_cnn.pth")
-LOG_PATH   = os.path.join(MODEL_DIR, "training_log.csv")
+
+# Suffix paths if we are fine-tuning, so we don't overwrite the scratch run!
+suffix = "_finetuned" if args.pretrained_path else ""
+MODEL_PATH = os.path.join(MODEL_DIR, f"traffic_sign_cnn{suffix}.pth")
+LOG_PATH   = os.path.join(MODEL_DIR, f"training_log{suffix}.csv")
 
 # ── Hyperparameters ────────────────────────────────────────────────────────────
 IMAGE_SIZE        = 64
@@ -315,6 +319,33 @@ def main() -> None:
     print("-" * 72)
 
     model     = TrafficSignCNN(num_classes=num_classes).to(device)
+    
+    # Load pretrained weights if provided
+    if args.pretrained_path:
+        if os.path.exists(args.pretrained_path):
+            print(f"  Loading pretrained weights from: {args.pretrained_path}")
+            checkpoint = torch.load(args.pretrained_path, map_location=device)
+            # The checkpoint could be a state_dict or a dict containing state_dict
+            state_dict = checkpoint.get("state_dict", checkpoint) if isinstance(checkpoint, dict) else checkpoint
+            
+            # Since number of classes is different (e.g. 43 in GTSRB vs 58 in Indian), 
+            # we skip loading the final linear layer weight/bias.
+            filtered_state_dict = {}
+            for k, v in state_dict.items():
+                if "classifier.12" in k or "classifier.13" in k:  # Last layer index 12 in Sequential head
+                    continue
+                # Compatibility check for keys
+                if k in model.state_dict() and model.state_dict()[k].shape == v.shape:
+                    filtered_state_dict[k] = v
+                else:
+                    print(f"    Skipping key: {k} (shape mismatch or not in model)")
+            
+            # Load the matching weights
+            msg = model.load_state_dict(filtered_state_dict, strict=False)
+            print(f"  Pretrained load status: {msg}")
+        else:
+            print(f"  [Warning] Pretrained file not found at: {args.pretrained_path}. Training from scratch.")
+
     criterion = nn.CrossEntropyLoss(label_smoothing=LABEL_SMOOTHING)
 
     # UPDATED: AdamW with higher weight decay outperforms Adam on smaller datasets
