@@ -18,18 +18,20 @@ from model import TrafficSignCNN
 parser = argparse.ArgumentParser()
 parser.add_argument('--data_dir', type=str, default=os.path.join("data", "Indian_Dataset"), help='Path to dataset images folder')
 parser.add_argument('--pretrained_path', type=str, default=None, help='Path to pretrained GTSRB model checkpoint (.pth)')
+parser.add_argument('--model_type', type=str, default='custom_cnn', choices=['custom_cnn', 'resnet50'], help='Model architecture to use')
+parser.add_argument('--image_size', type=int, default=64, help='Image height and width for training')
 args = parser.parse_args()
 
 DATA_DIR   = args.data_dir
 MODEL_DIR  = "models"
 
 # Suffix paths if we are fine-tuning, so we don't overwrite the scratch run!
-suffix = "_finetuned" if args.pretrained_path else ""
-MODEL_PATH = os.path.join(MODEL_DIR, f"traffic_sign_cnn{suffix}.pth")
+suffix = f"_{args.model_type}_finetuned" if args.pretrained_path else f"_{args.model_type}"
+MODEL_PATH = os.path.join(MODEL_DIR, f"traffic_sign{suffix}.pth")
 LOG_PATH   = os.path.join(MODEL_DIR, f"training_log{suffix}.csv")
 
 # ── Hyperparameters ────────────────────────────────────────────────────────────
-IMAGE_SIZE        = 64
+IMAGE_SIZE        = args.image_size
 BATCH_SIZE        = 64
 LR                = 3e-4          # UPDATED: Lower base LR; warmup handles ramp-up
 EPOCHS            = 30            # UPDATED: More epochs — Indian data benefits from longer training
@@ -318,7 +320,16 @@ def main() -> None:
     train_loader, val_loader, num_classes, class_names = build_loaders(DATA_DIR, VAL_SPLIT)
     print("-" * 72)
 
-    model     = TrafficSignCNN(num_classes=num_classes).to(device)
+    if args.model_type == "resnet50":
+        import torchvision.models as tv_models
+        print("  Initializing ResNet50 architecture...")
+        model = tv_models.resnet50(weights=None)
+        in_features = model.fc.in_features
+        model.fc = nn.Linear(in_features, num_classes)
+    else:
+        model = TrafficSignCNN(num_classes=num_classes)
+        
+    model = model.to(device)
     
     # Load pretrained weights if provided
     if args.pretrained_path:
@@ -332,8 +343,14 @@ def main() -> None:
             # we skip loading the final linear layer weight/bias.
             filtered_state_dict = {}
             for k, v in state_dict.items():
-                if "classifier.12" in k or "classifier.13" in k:  # Last layer index 12 in Sequential head
-                    continue
+                # Skip the classification head depending on the architecture
+                if args.model_type == "resnet50":
+                    if k.startswith("fc."):
+                        continue
+                else:
+                    if "classifier.12" in k or "classifier.13" in k:  # Last layer in custom sequential head
+                        continue
+                        
                 # Compatibility check for keys
                 if k in model.state_dict() and model.state_dict()[k].shape == v.shape:
                     filtered_state_dict[k] = v
