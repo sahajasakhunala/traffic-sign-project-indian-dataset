@@ -335,9 +335,11 @@ def main() -> None:
     if args.pretrained_path:
         if os.path.exists(args.pretrained_path):
             print(f"  Loading pretrained weights from: {args.pretrained_path}")
-            checkpoint = torch.load(args.pretrained_path, map_location=device)
-            # The checkpoint could be a state_dict or a dict containing state_dict
-            state_dict = checkpoint.get("state_dict", checkpoint) if isinstance(checkpoint, dict) else checkpoint
+            checkpoint = torch.load(args.pretrained_path, map_location=device, weights_only=False)
+            if isinstance(checkpoint, dict):
+                state_dict = checkpoint.get("state_dict", checkpoint.get("model_state_dict", checkpoint))
+            else:
+                state_dict = checkpoint
             
             # Since number of classes is different (e.g. 43 in GTSRB vs 58 in Indian), 
             # we skip loading the final linear layer weight/bias.
