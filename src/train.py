@@ -20,14 +20,17 @@ parser.add_argument('--data_dir', type=str, default=os.path.join("data", "Indian
 parser.add_argument('--pretrained_path', type=str, default=None, help='Path to pretrained GTSRB model checkpoint (.pth)')
 parser.add_argument('--model_type', type=str, default='custom_cnn', choices=['custom_cnn', 'resnet50'], help='Model architecture to use')
 parser.add_argument('--image_size', type=int, default=64, help='Image height and width for training')
+parser.add_argument('--checkpoint_dir', type=str, default="models", help='Directory to save checkpoints')
+parser.add_argument('--resume', action='store_true', help='Resume training from last checkpoint')
 args = parser.parse_args()
 
 DATA_DIR   = args.data_dir
-MODEL_DIR  = "models"
+MODEL_DIR  = args.checkpoint_dir
 
 # Suffix paths if we are fine-tuning, so we don't overwrite the scratch run!
 suffix = f"_{args.model_type}_finetuned" if args.pretrained_path else f"_{args.model_type}"
 MODEL_PATH = os.path.join(MODEL_DIR, f"traffic_sign{suffix}.pth")
+LAST_PATH  = os.path.join(MODEL_DIR, f"traffic_sign{suffix}_last.pth")
 LOG_PATH   = os.path.join(MODEL_DIR, f"training_log{suffix}.csv")
 
 # ── Hyperparameters ────────────────────────────────────────────────────────────
@@ -331,8 +334,19 @@ def main() -> None:
         
     model = model.to(device)
     
-    # Load pretrained weights if provided
-    if args.pretrained_path:
+    resumed = False
+    start_epoch = 1
+    best_val_acc   = 0.0
+    patience_count = 0
+    history: list[dict] = []
+
+    # Check if we should resume
+    if args.resume and os.path.exists(LAST_PATH):
+        print(f"  Resumed checkpoint found at: {LAST_PATH}")
+        resumed = True
+    
+    # Load pretrained weights ONLY if not resuming
+    if args.pretrained_path and not resumed:
         if os.path.exists(args.pretrained_path):
             print(f"  Loading pretrained weights from: {args.pretrained_path}")
             checkpoint = torch.load(args.pretrained_path, map_location=device, weights_only=False)
@@ -367,12 +381,20 @@ def main() -> None:
 
     criterion = nn.CrossEntropyLoss(label_smoothing=LABEL_SMOOTHING)
 
-    # UPDATED: AdamW with higher weight decay outperforms Adam on smaller datasets
+    # Initialize optimizer
     optimizer = optim.AdamW(model.parameters(), lr=LR, weight_decay=2e-4)
 
-    best_val_acc   = 0.0
-    patience_count = 0
-    history: list[dict] = []
+    # Now load resume state if applicable
+    if resumed:
+        print(f"  Loading last checkpoint state...")
+        checkpoint = torch.load(LAST_PATH, map_location=device, weights_only=False)
+        model.load_state_dict(checkpoint["state_dict"])
+        optimizer.load_state_dict(checkpoint["optimizer"])
+        start_epoch = checkpoint["epoch"] + 1
+        best_val_acc = checkpoint.get("best_val_acc", checkpoint.get("val_acc", 0.0))
+        patience_count = checkpoint.get("patience_count", 0)
+        history = checkpoint.get("history", [])
+        print(f"  Resumed successfully! Starting from Epoch {start_epoch} (Best Val Acc so far: {best_val_acc:.2f}%)")
 
     header = (
         f"{'Epoch':>7}  {'T-Loss':>8}  {'T-Acc':>7}  "
@@ -381,7 +403,7 @@ def main() -> None:
     print(header)
     print("-" * len(header))
 
-    for epoch in range(1, EPOCHS + 1):
+    for epoch in range(start_epoch, EPOCHS + 1):
         t0 = time.perf_counter()
 
         # UPDATED: Manual LR with warmup; set before the forward pass
@@ -394,6 +416,16 @@ def main() -> None:
 
         elapsed = time.perf_counter() - t0
 
+        history.append({
+            "epoch":      epoch,
+            "train_loss": round(train_loss, 6),
+            "train_acc":  round(train_acc,  4),
+            "val_loss":   round(val_loss,   6),
+            "val_acc":    round(val_acc,    4),
+            "lr":         round(current_lr, 8),
+            "time_s":     round(elapsed,    2),
+        })
+
         # ── Checkpoint ──────────────────────────────────────────────────────────
         improved = val_acc > best_val_acc
         if improved:
@@ -401,19 +433,40 @@ def main() -> None:
             patience_count = 0
             torch.save(
                 {
-                    "epoch":       epoch,
-                    "state_dict":  model.state_dict(),
-                    "optimizer":   optimizer.state_dict(),
-                    "val_acc":     val_acc,
-                    "val_loss":    val_loss,
-                    "class_names": class_names,
-                    "num_classes": num_classes,
-                    "image_size":  IMAGE_SIZE,
+                    "epoch":          epoch,
+                    "state_dict":     model.state_dict(),
+                    "optimizer":      optimizer.state_dict(),
+                    "val_acc":        val_acc,
+                    "val_loss":       val_loss,
+                    "best_val_acc":   best_val_acc,
+                    "patience_count": patience_count,
+                    "history":        history,
+                    "class_names":    class_names,
+                    "num_classes":    num_classes,
+                    "image_size":     IMAGE_SIZE,
                 },
                 MODEL_PATH,
             )
         else:
             patience_count += 1
+
+        # Save last checkpoint for resuming
+        torch.save(
+            {
+                "epoch":          epoch,
+                "state_dict":     model.state_dict(),
+                "optimizer":      optimizer.state_dict(),
+                "val_acc":        val_acc,
+                "val_loss":       val_loss,
+                "best_val_acc":   best_val_acc,
+                "patience_count": patience_count,
+                "history":        history,
+                "class_names":    class_names,
+                "num_classes":    num_classes,
+                "image_size":     IMAGE_SIZE,
+            },
+            LAST_PATH,
+        )
 
         marker = " ✓" if improved else ""
         print(
@@ -426,16 +479,6 @@ def main() -> None:
             f"  {elapsed:>6.1f}s"
             f"{marker}"
         )
-
-        history.append({
-            "epoch":      epoch,
-            "train_loss": round(train_loss, 6),
-            "train_acc":  round(train_acc,  4),
-            "val_loss":   round(val_loss,   6),
-            "val_acc":    round(val_acc,    4),
-            "lr":         round(current_lr, 8),
-            "time_s":     round(elapsed,    2),
-        })
 
         if patience_count >= EARLY_STOP_PAT:
             print(f"\n  Early stopping triggered — no improvement for {EARLY_STOP_PAT} epochs.")
