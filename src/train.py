@@ -3,6 +3,7 @@ import os
 import time
 import collections
 import math
+import argparse
 
 import torch
 import torch.nn as nn
@@ -14,7 +15,11 @@ from torchvision import datasets, transforms
 from model import TrafficSignCNN
 
 # ── Paths ──────────────────────────────────────────────────────────────────────
-DATA_DIR   = os.path.join("data", "Indian_Dataset")
+parser = argparse.ArgumentParser()
+parser.add_argument('--data_dir', type=str, default=os.path.join("data", "Indian_Dataset"), help='Path to dataset images folder')
+args = parser.parse_args()
+
+DATA_DIR   = args.data_dir
 MODEL_DIR  = "models"
 MODEL_PATH = os.path.join(MODEL_DIR, "traffic_sign_cnn.pth")
 LOG_PATH   = os.path.join(MODEL_DIR, "training_log.csv")
