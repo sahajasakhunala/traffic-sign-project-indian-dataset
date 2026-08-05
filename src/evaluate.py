@@ -55,6 +55,7 @@ def main():
     parser.add_argument('--image_size', type=int, default=128, help='Image size')
     parser.add_argument('--log_path', type=str, default=None, help='Path to training log CSV')
     parser.add_argument('--output_dir', type=str, default='results', help='Directory to save plots')
+    parser.add_argument('--use_tta', action='store_true', help='Use Test-Time Augmentation (TTA)')
     args = parser.parse_args()
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -114,8 +115,25 @@ def main():
     with torch.no_grad():
         for images, labels in val_loader:
             images = images.to(device)
-            outputs = model(images)
-            _, predicted = outputs.max(1)
+            if args.use_tta:
+                import torchvision.transforms.functional as F_t
+                outputs1 = model(images)
+                outputs2 = model(F_t.rotate(images, angle=3.0))
+                outputs3 = model(F_t.rotate(images, angle=-3.0))
+                outputs4 = model(F_t.affine(images, angle=0.0, translate=[0, 0], scale=1.05, shear=0.0))
+                outputs5 = model(F_t.affine(images, angle=0.0, translate=[0, 0], scale=0.95, shear=0.0))
+                
+                probs = (
+                    torch.softmax(outputs1, dim=1) +
+                    torch.softmax(outputs2, dim=1) +
+                    torch.softmax(outputs3, dim=1) +
+                    torch.softmax(outputs4, dim=1) +
+                    torch.softmax(outputs5, dim=1)
+                ) / 5.0
+                _, predicted = probs.max(1)
+            else:
+                outputs = model(images)
+                _, predicted = outputs.max(1)
             y_true.extend(labels.tolist())
             y_pred.extend(predicted.cpu().tolist())
 
