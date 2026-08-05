@@ -55,7 +55,7 @@ if device.type == "cuda":
 train_transform = transforms.Compose([
     transforms.Resize((IMAGE_SIZE + 8, IMAGE_SIZE + 8)),   # slight oversize for random crop
     transforms.RandomCrop(IMAGE_SIZE),                      # random-crop replaces simple resize
-    transforms.RandomHorizontalFlip(p=0.1),                 # most signs are asymmetric; keep low
+    # Removed RandomHorizontalFlip(p=0.1) to avoid confusing left/right directional signs (e.g. 23 <-> 24)
     transforms.RandomRotation(degrees=20),                  # UPDATED: wider rotation
     transforms.RandomAffine(
         degrees=0,
