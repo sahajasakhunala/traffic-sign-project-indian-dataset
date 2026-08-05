@@ -11,7 +11,7 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader, Subset, WeightedRandomSampler
 from torchvision import datasets, transforms
 
-from .model import TrafficSignCNN
+from model import TrafficSignCNN
 
 # ── Paths ──────────────────────────────────────────────────────────────────────
 DATA_DIR   = os.path.join("data", "Indian_Dataset")
