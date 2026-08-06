@@ -22,6 +22,8 @@ parser.add_argument('--model_type', type=str, default='custom_cnn', choices=['cu
 parser.add_argument('--image_size', type=int, default=64, help='Image height and width for training')
 parser.add_argument('--checkpoint_dir', type=str, default="models", help='Directory to save checkpoints')
 parser.add_argument('--resume', action='store_true', help='Resume training from last checkpoint')
+parser.add_argument('--mixup_alpha', type=float, default=0.3, help='Mixup alpha (0.0 to disable)')
+parser.add_argument('--cutmix_alpha', type=float, default=1.0, help='Cutmix alpha (0.0 to disable)')
 args = parser.parse_args()
 
 DATA_DIR   = args.data_dir
@@ -36,17 +38,17 @@ LOG_PATH   = os.path.join(MODEL_DIR, f"training_log{suffix}.csv")
 # ── Hyperparameters ────────────────────────────────────────────────────────────
 IMAGE_SIZE        = args.image_size
 BATCH_SIZE        = 64
-LR                = 3e-4          # UPDATED: Lower base LR; warmup handles ramp-up
-EPOCHS            = 30            # UPDATED: More epochs — Indian data benefits from longer training
-WARMUP_EPOCHS     = 3             # UPDATED: Linear warmup to stabilise early gradient norms
+LR                = 3e-4          # Lower base LR; warmup handles ramp-up
+EPOCHS            = 30            # More epochs — Indian data benefits from longer training
+WARMUP_EPOCHS     = 3             # Linear warmup to stabilise early gradient norms
 VAL_SPLIT         = 0.15
-EARLY_STOP_PAT    = 8             # UPDATED: More patience — Indian dataset is noisier
-GRAD_CLIP         = 1.0           # UPDATED: Tighter clip for stability on noisy labels
+EARLY_STOP_PAT    = 8             # More patience — Indian dataset is noisier
+GRAD_CLIP         = 1.0           # Tighter clip for stability on noisy labels
 NUM_WORKERS       = min(4, os.cpu_count() or 1)
 SEED              = 42
-LABEL_SMOOTHING   = 0.10          # UPDATED: Stronger smoothing for noisy/ambiguous signs
-MIXUP_ALPHA       = 0.3           # UPDATED: Mixup regularisation (0 = disabled)
-CUTMIX_ALPHA      = 1.0           # UPDATED: CutMix regularisation (0 = disabled)
+LABEL_SMOOTHING   = 0.10          # Stronger smoothing for noisy/ambiguous signs
+MIXUP_ALPHA       = args.mixup_alpha
+CUTMIX_ALPHA      = args.cutmix_alpha
 USE_WEIGHTED_SAMPLER = True       # UPDATED: Fix class-imbalance with per-sample weights
 
 # ── Device ─────────────────────────────────────────────────────────────────────
