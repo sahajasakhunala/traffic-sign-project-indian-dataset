@@ -3,7 +3,10 @@ import argparse
 import collections
 import json
 import matplotlib.pyplot as plt
-import seaborn as sns
+try:
+    import seaborn as sns
+except ImportError:
+    sns = None
 import numpy as np
 import pandas as pd
 import torch
@@ -55,11 +58,30 @@ def main():
     parser.add_argument('--image_size', type=int, default=128, help='Image size')
     parser.add_argument('--log_path', type=str, default=None, help='Path to training log CSV')
     parser.add_argument('--output_dir', type=str, default='results', help='Directory to save plots')
+    parser.add_argument('--csv_path', type=str, default=None, help='Path to traffic_sign.csv mapping file')
     parser.add_argument('--use_tta', action='store_true', help='Use Test-Time Augmentation (TTA)')
     args = parser.parse_args()
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     os.makedirs(args.output_dir, exist_ok=True)
+
+    # Resolve CSV path for class names
+    csv_path = args.csv_path
+    if not csv_path:
+        candidate_csv = os.path.join(args.data_dir, "traffic_sign.csv")
+        if os.path.exists(candidate_csv):
+            csv_path = candidate_csv
+
+    class_name_map = {}
+    if csv_path and os.path.exists(csv_path):
+        try:
+            df_names = pd.read_csv(csv_path)
+            c_col = [c for c in df_names.columns if c.strip().lower() in ['classid', 'class_id', 'id']][0]
+            n_col = [c for c in df_names.columns if c.strip().lower() in ['name', 'class_name', 'label', 'description']][0]
+            for _, r in df_names.iterrows():
+                class_name_map[int(r[c_col])] = str(r[n_col]).strip()
+        except Exception as e:
+            print(f"[WARN] Error loading class names from {csv_path}: {e}")
 
     # 1. Load Dataset
     val_transform = transforms.Compose([
@@ -141,24 +163,55 @@ def main():
     y_pred = np.array(y_pred)
 
     overall_accuracy = (y_true == y_pred).mean() * 100.0
-    print(f"\n==================================================")
-    print(f"  Validation Accuracy: {overall_accuracy:.2f}%")
-    print(f"==================================================\n")
 
     # 4. Generate & Save Classification Report
     report = classification_report(y_true, y_pred, target_names=class_names, output_dict=True)
     report_txt = classification_report(y_true, y_pred, target_names=class_names)
     
+    macro_f1 = report.get('macro avg', {}).get('f1-score', 0.0) * 100.0
+    weighted_f1 = report.get('weighted avg', {}).get('f1-score', 0.0) * 100.0
+
+    print(f"\n==================================================")
+    print(f"  Validation Samples  : {len(y_true)}")
+    print(f"  Validation Accuracy : {overall_accuracy:.2f}%")
+    print(f"  Macro-Averaged F1   : {macro_f1:.2f}%")
+    print(f"  Weighted F1-Score   : {weighted_f1:.2f}%")
+    print(f"==================================================\n")
+
     report_json_path = os.path.join(args.output_dir, f"{args.model_type}_classification_report.json")
     with open(report_json_path, 'w') as f:
         json.dump(report, f, indent=4)
     print(f"Classification report saved to: {report_json_path}")
 
+    # Export Per-Class Accuracy CSV
+    per_class_records = []
+    for c_idx, c_name in enumerate(class_names):
+        c_int = int(c_name) if c_name.isdigit() else c_idx
+        h_name = class_name_map.get(c_int, f"Class {c_name}")
+        metrics = report.get(c_name, {})
+        per_class_records.append({
+            "class_id": c_name,
+            "class_name": h_name,
+            "precision": round(metrics.get("precision", 0.0) * 100, 2),
+            "recall": round(metrics.get("recall", 0.0) * 100, 2),
+            "f1_score": round(metrics.get("f1-score", 0.0) * 100, 2),
+            "support": int(metrics.get("support", 0))
+        })
+
+    per_class_df = pd.DataFrame(per_class_records)
+    per_class_csv_path = os.path.join(args.output_dir, f"{args.model_type}_per_class_accuracy.csv")
+    per_class_df.to_csv(per_class_csv_path, index=False)
+    print(f"Per-class accuracy table saved to: {per_class_csv_path}")
+
     # 5. Plot & Save Confusion Matrix
     cm = confusion_matrix(y_true, y_pred)
     plt.figure(figsize=(24, 20))
-    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=class_names, yticklabels=class_names)
-    plt.title(f'Confusion Matrix - {args.model_type.upper()} (Val Accuracy: {overall_accuracy:.2f}%)', fontsize=18)
+    if sns is not None:
+        sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=class_names, yticklabels=class_names)
+    else:
+        im = plt.imshow(cm, cmap='Blues')
+        plt.colorbar(im)
+    plt.title(f'Confusion Matrix - {args.model_type.upper()} (Val Acc: {overall_accuracy:.2f}%, Macro-F1: {macro_f1:.2f}%)', fontsize=18)
     plt.xlabel('Predicted Label', fontsize=14)
     plt.ylabel('True Label', fontsize=14)
     
@@ -175,13 +228,17 @@ def main():
             confusion_pairs[(true, pred)] += 1
 
     sorted_confusion = sorted(confusion_pairs.items(), key=lambda x: x[1], reverse=True)
-    print("Top 10 Most Confusing Sign Pairs:")
-    print("-" * 50)
+    print("\nTop 10 Most Confusing Sign Pairs:")
+    print("-" * 65)
     for (true_cls, pred_cls), count in sorted_confusion[:10]:
         true_name = class_names[true_cls]
         pred_name = class_names[pred_cls]
-        print(f"Class {true_name} ↔ Predicted as Class {pred_name}: {count} times")
-    print("-" * 50)
+        t_int = int(true_name) if true_name.isdigit() else true_cls
+        p_int = int(pred_name) if pred_name.isdigit() else pred_cls
+        t_label = class_name_map.get(t_int, f"Class {true_name}")
+        p_label = class_name_map.get(p_int, f"Class {pred_name}")
+        print(f"Class {true_name} ({t_label}) ↔ Pred as Class {pred_name} ({p_label}): {count} errors")
+    print("-" * 65)
 
     # 7. Plot & Save Training Curves from CSV Log
     if args.log_path and os.path.exists(args.log_path):

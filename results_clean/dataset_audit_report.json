@@ -1,0 +1,1912 @@
+{
+  "summary": {
+    "total_files_scanned": 12925,
+    "total_valid_images": 12925,
+    "total_classes": 58,
+    "corrupt_images_count": 0,
+    "exact_duplicate_groups_within_class": 0,
+    "exact_duplicate_groups_cross_class": 0,
+    "exact_train_val_leakage_groups": 0,
+    "perceptual_train_val_leakage_matches": 1250,
+    "perceptual_cross_class_review_matches": 4170,
+    "blurry_images_count": 16,
+    "low_contrast_images_count": 45,
+    "anomalous_shapes_count": 0,
+    "channel_anomalies_count": 12925,
+    "minority_classes_count (<40 samples)": 0
+  },
+  "critical_issues": {
+    "corrupt_images": [],
+    "exact_cross_class_duplicates": [],
+    "exact_train_val_leakage": [],
+    "severe_minority_classes": []
+  },
+  "high_priority_issues": {
+    "perceptual_train_val_leakage": [
+      {
+        "distance": 0,
+        "image_a": "53/53_original_96_original_96.png_2ad2b06c-091d-4e43-8f77-136fdd537ddb.png_9762f100-c3ee-41fc-a803-fd3829240af7.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "val",
+        "image_b": "55/55_original_98_original_98.png_3ff15261-2cf2-4dbe-b18d-9e92897abfde.png_8df62e9e-bdf6-4728-ba70-1b42bc6d867c.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "23/23_original_66_original_66.png_4121f891-61ef-4f0e-8fe8-3df649f276a8.png_00f39e40-bb70-44b8-b068-cd81321fba95.png",
+        "class_a": 23,
+        "name_a": "Turn left",
+        "split_a": "train",
+        "image_b": "24/67_original_67.png_57353309-9f0c-45b4-a2db-2edf2b59316e.png",
+        "class_b": 24,
+        "name_b": "Turn right",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "5/48_original_48.png_09043b63-3b90-4d3b-9248-e16fd446302f.png",
+        "class_a": 5,
+        "name_a": "No entry for cycles",
+        "split_a": "val",
+        "image_b": "5/5_original_48_original_48.png_c2b4c76b-2b81-4870-9ed1-7120f74f9a86.png_206d1816-0621-43c3-9e79-f9b1b5cb7903.png",
+        "class_b": 5,
+        "name_b": "No entry for cycles",
+        "split_b": "train"
+      },
+      {
+        "distance": 1,
+        "image_a": "2/45_original_45.png_369428f1-e33b-403b-8d0a-33ddb37637f5.png",
+        "class_a": 2,
+        "name_a": "One-way traffic",
+        "split_a": "val",
+        "image_b": "3/46.png",
+        "class_b": 3,
+        "name_b": "One-way traffic",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "22/65_original_65.png_1dcfdc0e-0c5b-4b13-a869-7b1586a5de9e.png",
+        "class_a": 22,
+        "name_a": "No stopping",
+        "split_a": "val",
+        "image_b": "22/65_original_65.png_8d61a14b-7866-4ae5-a337-8d155635dc00.png",
+        "class_b": 22,
+        "name_b": "No stopping",
+        "split_b": "train"
+      },
+      {
+        "distance": 1,
+        "image_a": "41/84_original_84.png_cd98a83d-0b7f-4df3-86fb-1e264a0067b9.png",
+        "class_a": 41,
+        "name_a": "Y-junction",
+        "split_a": "train",
+        "image_b": "41/84_original_84.png_f32c2405-d232-4a9b-abdd-ff4a74d49794.png",
+        "class_b": 41,
+        "name_b": "Y-junction",
+        "split_b": "val"
+      },
+      {
+        "distance": 1,
+        "image_a": "47/90_original_90.png_21b2db3a-89b6-44e5-9972-106f897e4af4.png",
+        "class_a": 47,
+        "name_a": "Level crossing countdown marker",
+        "split_a": "train",
+        "image_b": "48/91_original_91.png_b9e1c34e-3674-4a6a-9ace-573b47ec8d5c.png",
+        "class_b": 48,
+        "name_b": "Level crossing countdown marker",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "23/23_original_66_original_66.png_cc637cbb-1e6f-4b62-a93d-a99039f64ba2.png_62f9ec49-8358-46a5-b2b4-87ae6dafdb86.png",
+        "class_a": 23,
+        "name_a": "Turn left",
+        "split_a": "train",
+        "image_b": "23/66_original_66.png_eb26a499-eeed-4f4e-834f-99685eaa2349.png",
+        "class_b": 23,
+        "name_b": "Turn left",
+        "split_b": "val"
+      },
+      {
+        "distance": 1,
+        "image_a": "1/1_original_44_original_44.png_b2d8d014-4567-4e67-8f0e-54787339127b.png_bd982e4c-4327-484f-bbf5-926285f8e8f0.png",
+        "class_a": 1,
+        "name_a": "No entry",
+        "split_a": "val",
+        "image_b": "1/44_original_44.png_da29d194-d153-4ee7-b711-e2f153e33910.png",
+        "class_b": 1,
+        "name_b": "No entry",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "11/11_original_54_original_54.png_e86ab47d-eab8-43ff-90ed-f63127612ad4.png_6dbab5aa-fbc3-45c4-bb8c-024647bdc9d5.png",
+        "class_a": 11,
+        "name_a": "Height limit",
+        "split_a": "train",
+        "image_b": "11/11_original_54_original_54.png_ed692c2c-e953-4cd7-b464-862781f6e497.png_ff69d009-8fdc-45aa-8ae0-b9be36254ee7.png",
+        "class_b": 11,
+        "name_b": "Height limit",
+        "split_b": "val"
+      },
+      {
+        "distance": 1,
+        "image_a": "23/23_original_66_original_66.png_b16e6de3-424d-41dc-9e77-5e61e0a72502.png_512effa0-3ca0-471c-a7f4-977e89b2380e.png",
+        "class_a": 23,
+        "name_a": "Turn left",
+        "split_a": "train",
+        "image_b": "24/67_original_67.png_3a53e755-cd4d-4536-8dde-1eaea36a7cb2.png",
+        "class_b": 24,
+        "name_b": "Turn right",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "17/17_original_60_original_60.png_b7c1d399-a5eb-4bcc-a8b0-0c56bc6c79ff.png_dbc82eff-3af6-4d01-9750-eb68d86a58aa.png",
+        "class_a": 17,
+        "name_a": "No overtaking",
+        "split_a": "train",
+        "image_b": "17/60_original_60.png_fe16de8b-efab-42f5-9b54-40ce6954ecad.png",
+        "class_b": 17,
+        "name_b": "No overtaking",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "51/51_original_94_original_94.png_600a90e7-3927-4ac2-af24-1f679b41fbec.png_e5233493-151e-4407-b635-40b3984e8d60.png",
+        "class_a": 51,
+        "name_a": "Parking",
+        "split_a": "val",
+        "image_b": "51/94_original_94.png_600a90e7-3927-4ac2-af24-1f679b41fbec.png",
+        "class_b": 51,
+        "name_b": "Parking",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "2/2_original_45_original_45.png_b08c662c-aeb5-4c64-8994-47520d16d267.png_8c1e284c-2261-460d-92fb-7ecc6c5e4329.png",
+        "class_a": 2,
+        "name_a": "One-way traffic",
+        "split_a": "train",
+        "image_b": "2/45_original_45.png_b08c662c-aeb5-4c64-8994-47520d16d267.png",
+        "class_b": 2,
+        "name_b": "One-way traffic",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "40/40_original_83_original_83.png_1596aa38-f3a9-4648-8700-468b411b8b10.png_2b6ddee9-8781-4f85-b3d8-8504bedb7711.png",
+        "class_a": 40,
+        "name_a": "T-junction",
+        "split_a": "val",
+        "image_b": "40/83_original_83.png_e5ed4ebb-bb0b-48c2-b75e-8f6426e994a5.png",
+        "class_b": 40,
+        "name_b": "T-junction",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/53_original_96_original_96.png_2ad2b06c-091d-4e43-8f77-136fdd537ddb.png_e004d65a-bbe5-4b0e-a902-bc4964b35ca0.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "val",
+        "image_b": "55/55_original_98_original_98.png_cf8c437f-46f1-4720-b5dd-f58b1b0a7f35.png_4806ca05-5d31-491c-9686-0ccef3174a10.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      },
+      {
+        "distance": 1,
+        "image_a": "53/53_original_96_original_96.png_24ab1055-7524-43bd-853b-1845aa5adfd7.png_27e89d22-4107-4b67-9e42-7a0e513b9e9c.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/98_original_98.png_10d7f5c4-cf79-490c-a7a9-9774bab64adf.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "40/40_original_83.png_1c7dc07f-493c-47b4-854a-f1e8d19b0b23.png",
+        "class_a": 40,
+        "name_a": "T-junction",
+        "split_a": "val",
+        "image_b": "40/83_original_83.png_b7a32ff8-1f6c-4ce4-ade2-7c5f7610b3b4.png",
+        "class_b": 40,
+        "name_b": "T-junction",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "55/55_original_98_original_98.png_8199cde4-7526-4797-8f58-a9e5f9a1a73e.png_5f7c2017-5415-48bd-9d1f-ec3fe4a70db3.png",
+        "class_a": 55,
+        "name_a": "Filling station",
+        "split_a": "val",
+        "image_b": "55/98_original_98.png_8199cde4-7526-4797-8f58-a9e5f9a1a73e.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "10/10_original_53_original_53.png_02cbaa05-c9e5-4687-ab3b-7e4207cdc906.png_c779406e-1437-4390-ad2d-54c251194685.png",
+        "class_a": 10,
+        "name_a": "No entry for motor vehicles",
+        "split_a": "val",
+        "image_b": "10/53_original_53.png_02cbaa05-c9e5-4687-ab3b-7e4207cdc906.png",
+        "class_b": 10,
+        "name_b": "No entry for motor vehicles",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "54/54_original_97_original_97.png_c838598a-0680-41f6-8a4a-b12784a8e6fd.png_cc8459b4-f918-492b-996e-3ecd7ddac553.png",
+        "class_a": 54,
+        "name_a": "Telephone",
+        "split_a": "val",
+        "image_b": "54/97_original_97.png_c838598a-0680-41f6-8a4a-b12784a8e6fd.png",
+        "class_b": 54,
+        "name_b": "Telephone",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "20/63_original_63.png_4b1b3715-fb19-4b32-923a-b31a18c4144b.png",
+        "class_a": 20,
+        "name_a": "Horn prohibited",
+        "split_a": "train",
+        "image_b": "20/63_original_63.png_4fd10b05-3953-4993-b4a3-87ee446c75bd.png",
+        "class_b": 20,
+        "name_b": "Horn prohibited",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "51/51_original_94_original_94.png_9638c210-0ff8-4c2a-9bb9-3a60fced9a73.png_c8d7e9ac-ad2a-4782-9e8c-3b40dbbb0b51.png",
+        "class_a": 51,
+        "name_a": "Parking",
+        "split_a": "train",
+        "image_b": "51/94_original_94.png_9638c210-0ff8-4c2a-9bb9-3a60fced9a73.png",
+        "class_b": 51,
+        "name_b": "Parking",
+        "split_b": "val"
+      },
+      {
+        "distance": 1,
+        "image_a": "43/86_original_86.png_274beaef-2712-412f-b2fc-c68c11a503b8.png",
+        "class_a": 43,
+        "name_a": "Staggered side road junction",
+        "split_a": "train",
+        "image_b": "43/86_original_86.png_50b21b99-e872-4511-9a74-ac099fe7df81.png",
+        "class_b": 43,
+        "name_b": "Staggered side road junction",
+        "split_b": "val"
+      },
+      {
+        "distance": 1,
+        "image_a": "38/81_original_81.png_5f9f9ff3-7088-4231-b030-fa28260204f6.png",
+        "class_a": 38,
+        "name_a": "Oblique side road junction",
+        "split_a": "train",
+        "image_b": "38/81_original_81.png_be6ea3ad-4e59-48e4-bde1-71e5bfa7fa88.png",
+        "class_b": 38,
+        "name_b": "Oblique side road junction",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/53_original_96_original_96.png_2ad2b06c-091d-4e43-8f77-136fdd537ddb.png_9762f100-c3ee-41fc-a803-fd3829240af7.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "val",
+        "image_b": "53/53_original_96_original_96.png_8ce7456a-0c72-4556-91b5-6b4dd9b71b18.png_c78139fd-0383-4c57-842e-0175a94b5cb1.png",
+        "class_b": 53,
+        "name_b": "First aid post",
+        "split_b": "train"
+      },
+      {
+        "distance": 1,
+        "image_a": "53/96_original_96.png_51a674c1-e18a-41af-80ba-e68a393d1656.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/98_original_98.png_0330bd4e-5f68-400c-a19b-de693ccca314.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "55/55_original_98_original_98.png_0330bd4e-5f68-400c-a19b-de693ccca314.png_d3ac81a6-244b-456a-be72-522467af9cba.png",
+        "class_a": 55,
+        "name_a": "Filling station",
+        "split_a": "train",
+        "image_b": "55/98_original_98.png_24067a15-73a3-4f24-ac26-2b7e6162d9bc.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "37/80_original_80.png_167346b2-6d56-4857-a4dc-06a3ed34716c.png",
+        "class_a": 37,
+        "name_a": "Side road junction",
+        "split_a": "val",
+        "image_b": "37/80_original_80.png_e18bfbbd-1762-4abf-bce8-0ce97e174bec.png",
+        "class_b": 37,
+        "name_b": "Side road junction",
+        "split_b": "train"
+      },
+      {
+        "distance": 1,
+        "image_a": "37/80_original_80.png_e1be080f-acfb-48e2-92bf-8267321c1e7d.png",
+        "class_a": 37,
+        "name_a": "Side road junction",
+        "split_a": "train",
+        "image_b": "43/43_original_86_original_86.png_c4ce03dc-7b85-470b-ab9b-c63ff607de52.png_7e9c4023-7b32-4ad6-a002-a0ce4e00e860.png",
+        "class_b": 43,
+        "name_b": "Staggered side road junction",
+        "split_b": "val"
+      },
+      {
+        "distance": 1,
+        "image_a": "37/80_original_80.png_1125b392-856e-4325-bc8c-5b07b57fdff7.png",
+        "class_a": 37,
+        "name_a": "Side road junction",
+        "split_a": "train",
+        "image_b": "43/43_original_86_original_86.png_c4ce03dc-7b85-470b-ab9b-c63ff607de52.png_7e9c4023-7b32-4ad6-a002-a0ce4e00e860.png",
+        "class_b": 43,
+        "name_b": "Staggered side road junction",
+        "split_b": "val"
+      },
+      {
+        "distance": 1,
+        "image_a": "27/27_original_70_original_70.png_1d5d3b58-d87d-4973-98fb-d6351ec5edb2.png_1ad73796-e8d9-46b3-aadd-e06eec026724.png",
+        "class_a": 27,
+        "name_a": "Narrow road",
+        "split_a": "train",
+        "image_b": "27/70_original_70.png_b306f310-9d3d-4f38-85b4-81b90362ee7b.png",
+        "class_b": 27,
+        "name_b": "Narrow road",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "51/94_original_94.png_6f771a50-1197-4f2e-a6c5-df524f6835a2.png",
+        "class_a": 51,
+        "name_a": "Parking",
+        "split_a": "train",
+        "image_b": "51/94_original_94.png_9638c210-0ff8-4c2a-9bb9-3a60fced9a73.png",
+        "class_b": 51,
+        "name_b": "Parking",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "51/51_original_94_original_94.png_41296c83-f360-4061-a2f1-7907a96e28b0 - Copy (2).png_ae2aab7f-91fa-4f42-908e-1f0cc28cf884.png",
+        "class_a": 51,
+        "name_a": "Parking",
+        "split_a": "train",
+        "image_b": "51/51_original_94_original_94.png_41296c83-f360-4061-a2f1-7907a96e28b0 - Copy - Copy (2).png_5edf8b67-8384-4af6-9e25-5301402f4157.png",
+        "class_b": 51,
+        "name_b": "Parking",
+        "split_b": "val"
+      },
+      {
+        "distance": 1,
+        "image_a": "36/36_original_79_original_79.png_499bd291-db59-4337-891c-8b87e455eb25.png_db0bb5d6-17fd-45e7-9e19-2a2dc35cc536.png",
+        "class_a": 36,
+        "name_a": "Side road junction",
+        "split_a": "train",
+        "image_b": "36/36_original_79_original_79.png_fcae40f2-f36a-47b3-87b4-927a1672f2df.png_8309cdaa-b9d7-4fbd-9668-617e5847a0d3.png",
+        "class_b": 36,
+        "name_b": "Side road junction",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "3/46_original_46.png_e10cdb63-46c9-40b6-95c8-94d155898d54.png",
+        "class_a": 3,
+        "name_a": "One-way traffic",
+        "split_a": "val",
+        "image_b": "3/46_original_46.png_ffbf4b0b-9697-4849-a87f-28e49ecc1e41.png",
+        "class_b": 3,
+        "name_b": "One-way traffic",
+        "split_b": "train"
+      },
+      {
+        "distance": 1,
+        "image_a": "48/91_original_91.png_58265f18-9e00-4af7-91c1-833ad826f071.png",
+        "class_a": 48,
+        "name_a": "Level crossing countdown marker",
+        "split_a": "train",
+        "image_b": "48/91_original_91.png_b9e1c34e-3674-4a6a-9ace-573b47ec8d5c.png",
+        "class_b": 48,
+        "name_b": "Level crossing countdown marker",
+        "split_b": "val"
+      },
+      {
+        "distance": 1,
+        "image_a": "53/53_original_96_original_96.png_2ad2b06c-091d-4e43-8f77-136fdd537ddb.png_e004d65a-bbe5-4b0e-a902-bc4964b35ca0.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "val",
+        "image_b": "55/55_original_98_original_98.png_1938ba5a-c3f9-4cb7-a755-113f6e55182a.png_09e1440f-c9c3-41d1-9b33-1fee1a97ed78.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "11/11_original_54_original_54.png_ed692c2c-e953-4cd7-b464-862781f6e497.png_ff69d009-8fdc-45aa-8ae0-b9be36254ee7.png",
+        "class_a": 11,
+        "name_a": "Height limit",
+        "split_a": "val",
+        "image_b": "11/54_original_54.png_e140d4d5-9b56-4f7c-a797-aaec3fb62870.png",
+        "class_b": 11,
+        "name_b": "Height limit",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "17/17_original_60_original_60.png_a7787486-5f97-4392-89d7-7329a3df854e.png_9d2dac37-8446-47ac-94e2-c77ad73a4c64.png",
+        "class_a": 17,
+        "name_a": "No overtaking",
+        "split_a": "train",
+        "image_b": "17/17_original_60_original_60.png_f30caf38-8144-409f-b0c4-854f6ad28ac8.png_0099265a-129e-4f56-b775-d2336266940b.png",
+        "class_b": 17,
+        "name_b": "No overtaking",
+        "split_b": "val"
+      },
+      {
+        "distance": 1,
+        "image_a": "53/53_original_96_original_96.png_5f143522-88d5-4e37-a597-e1b090fa03d1.png_8f3ad7af-73b6-490e-9243-fc151ec4cede.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/55_original_98_original_98.png_3ff15261-2cf2-4dbe-b18d-9e92897abfde.png_cbd187a3-e4cc-46f7-bdb5-e70fdc3409e6.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/53_original_96_original_96.png_9401da51-bb16-44ca-8aa8-b978f49065d8.png_02b17860-9f8e-4a93-a5ef-7efaf1e7faa9.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/55_original_98_original_98.png_d5574538-1368-45b9-900e-f00eede0b27d.png_0dc1696e-fc4b-406c-97d3-1d125df5aeb4.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "val"
+      },
+      {
+        "distance": 1,
+        "image_a": "36/36_original_79_original_79.png_fcae40f2-f36a-47b3-87b4-927a1672f2df.png_8309cdaa-b9d7-4fbd-9668-617e5847a0d3.png",
+        "class_a": 36,
+        "name_a": "Side road junction",
+        "split_a": "val",
+        "image_b": "36/79_original_79.png_038aa6e3-3ff6-4a17-98cb-635baeddac1f.png",
+        "class_b": 36,
+        "name_b": "Side road junction",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "40/40_original_83_original_83.png_5e547a4c-05c0-49bd-9cf3-0bb6cf9c5540.png_406efbf2-8f4e-455b-8df9-e5ab5d8a2f97.png",
+        "class_a": 40,
+        "name_a": "T-junction",
+        "split_a": "train",
+        "image_b": "40/83_original_83.png_5e547a4c-05c0-49bd-9cf3-0bb6cf9c5540.png",
+        "class_b": 40,
+        "name_b": "T-junction",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "22/22_original_65_original_65.png_8d61a14b-7866-4ae5-a337-8d155635dc00.png_b54c7f76-e904-40a4-99d3-2d8ac10b5018.png",
+        "class_a": 22,
+        "name_a": "No stopping",
+        "split_a": "train",
+        "image_b": "22/22_original_65_original_65.png_9488f990-2a02-4c1d-b47e-446faa71db9c.png_69b60a21-6350-481b-b5d1-a0f1f4e0f8d4.png",
+        "class_b": 22,
+        "name_b": "No stopping",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "15/58_original_58.png_2b28b411-90ca-4361-891f-db26f3689883.png",
+        "class_a": 15,
+        "name_a": "No left turn",
+        "split_a": "train",
+        "image_b": "15/58_original_58.png_6f0de791-7f94-4a8d-8277-5a6e83c0ccf7.png",
+        "class_b": 15,
+        "name_b": "No left turn",
+        "split_b": "val"
+      },
+      {
+        "distance": 1,
+        "image_a": "51/51_original_94_original_94.png_5172b49a-3765-4c10-b52b-b1e09918bbcb - Copy - Copy.png_8ff94472-4030-4f72-9770-ff8cd79dc3e1.png",
+        "class_a": 51,
+        "name_a": "Parking",
+        "split_a": "train",
+        "image_b": "51/51_original_94_original_94.png_623b5968-ca5a-4c88-8d56-332d6bb306a2.png_c5c9216c-37ed-4a75-b716-f564bb1758b2.png",
+        "class_b": 51,
+        "name_b": "Parking",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/53_original_96_original_96.png_8378ddba-9fc1-49f3-802e-1ea14ce36b30.png_56134611-0f9a-4998-b7a4-e2a0e75f7c08.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/98_original_98.png_24067a15-73a3-4f24-ac26-2b7e6162d9bc.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "val"
+      },
+      {
+        "distance": 1,
+        "image_a": "16/16_original_59_original_59.png_8e2397f9-67af-4b80-93ea-4f46e51c8185.png_be0a8447-cc09-431c-90a6-9a234b8ab1b9.png",
+        "class_a": 16,
+        "name_a": "No right turn",
+        "split_a": "val",
+        "image_b": "21/21_original_64_original_64.png_ed80983e-4ba6-4b8f-9344-f387a4096ab5.png_cdbcbc37-cf70-4290-a827-0739e304ca44.png",
+        "class_b": 21,
+        "name_b": "No parking",
+        "split_b": "train"
+      },
+      {
+        "distance": 1,
+        "image_a": "28/28_original_71_original_71.png_5f02f2c2-e484-4e38-bd75-c33053e71b32.png_2d21655b-e96c-45f7-8335-41100e398d2a.png",
+        "class_a": 28,
+        "name_a": "Narrow bridge",
+        "split_a": "train",
+        "image_b": "28/71_original_71.png_605959de-8d19-4af3-97a0-555e047e1beb.png",
+        "class_b": 28,
+        "name_b": "Narrow bridge",
+        "split_b": "val"
+      }
+    ],
+    "blurry_images_sample": [
+      {
+        "path": "3/3_original_46_original_46.png_a6798576-768b-4ab9-9b90-c4079e8a5c2c.png_9ab0ebad-2ce9-4ad2-abd5-a7f52bd41981.png",
+        "class_id": 3,
+        "class_name": "One-way traffic",
+        "laplacian_var": 0.0
+      },
+      {
+        "path": "5/5_original_48_original_48.png_8b109244-b265-499a-9ee5-1795bdbefb2d.png_c7ceb7ca-9471-4402-a597-c6441950d051.png",
+        "class_id": 5,
+        "class_name": "No entry for cycles",
+        "laplacian_var": 0.0
+      },
+      {
+        "path": "5/5_original_48_original_48.png_8b109244-b265-499a-9ee5-1795bdbefb2d.png_d8e50020-a6d5-4b30-9bec-181d8a365ce3.png",
+        "class_id": 5,
+        "class_name": "No entry for cycles",
+        "laplacian_var": 0.0
+      },
+      {
+        "path": "8/8_original_51_original_51.png_6a9df54a-15c3-4843-b72d-b12af7f3bca5.png_3eb0f414-bbc0-4ad2-807d-ade8f6e0072b.png",
+        "class_id": 8,
+        "class_name": "No entry for bullock carts",
+        "laplacian_var": 0.0
+      },
+      {
+        "path": "8/8_original_51_original_51.png_6a9df54a-15c3-4843-b72d-b12af7f3bca5.png_6a40fad2-2872-4fbb-b324-641b38a831cf.png",
+        "class_id": 8,
+        "class_name": "No entry for bullock carts",
+        "laplacian_var": 0.0
+      },
+      {
+        "path": "8/8_original_51_original_51.png_6a9df54a-15c3-4843-b72d-b12af7f3bca5.png_6cfc0c8e-6c98-4bda-b261-41bbdbc82ded.png",
+        "class_id": 8,
+        "class_name": "No entry for bullock carts",
+        "laplacian_var": 0.0
+      },
+      {
+        "path": "16/16_original_59_original_59.png_1f816118-19ee-4cba-a989-d09e10739b1f.png_2c47b4aa-e519-4bb1-a717-0de03446b226.png",
+        "class_id": 16,
+        "class_name": "No right turn",
+        "laplacian_var": 0.0
+      },
+      {
+        "path": "20/20_original_63_original_63.png_72672e43-fd55-4471-9de2-d42fcf8e77ae.png_6d5ffe89-242d-4f20-b8cd-52a479b8cd95.png",
+        "class_id": 20,
+        "class_name": "Horn prohibited",
+        "laplacian_var": 0.0
+      },
+      {
+        "path": "20/20_original_63_original_63.png_811d2758-1889-4466-9a45-6ae84b7ba9d7.png_cc95cb6e-25a6-4486-9229-56b0e7b6c58e.png",
+        "class_id": 20,
+        "class_name": "Horn prohibited",
+        "laplacian_var": 0.0
+      },
+      {
+        "path": "22/22_original_65_original_65.png_45721ed2-259d-43c8-931d-bf44e3cbb4dc.png_0bfb76ab-3eb4-4c9f-8d97-4eb2b8c32017.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "laplacian_var": 0.0
+      },
+      {
+        "path": "22/22_original_65_original_65.png_4d0eccc8-ee43-4f75-8f0d-6d1933d5d00a.png_9f3549ee-db3c-4d2f-b0e4-ed3d86c2a6bb.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "laplacian_var": 0.0
+      },
+      {
+        "path": "22/22_original_65_original_65.png_a61f4c89-7f91-451d-9ad9-eac16916ea09.png_d0c70108-09c2-4c86-a132-861265775589.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "laplacian_var": 0.0
+      },
+      {
+        "path": "26/26_original_69_original_69.png_9d6a4685-97ad-45cb-bc92-66aacc4469cf.png_6185344b-3fed-4cd6-9b51-769caafed4e3.png",
+        "class_id": 26,
+        "class_name": "Steep ascent",
+        "laplacian_var": 0.0
+      },
+      {
+        "path": "22/22_original_65_original_65.png_ec9034f6-9c70-493e-b346-6671df26e121.png_5014bb23-53a7-4ab6-98d7-62afde233f6e.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "laplacian_var": 21.0
+      },
+      {
+        "path": "22/22_original_65_original_65.png_1dcfdc0e-0c5b-4b13-a869-7b1586a5de9e.png_8e26a229-e2af-48ce-9efd-423f80917316.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "laplacian_var": 33.15
+      },
+      {
+        "path": "22/22_original_65_original_65.png_a897f061-df22-4d3c-8393-2984c95f402b.png_363bc653-afe7-46b7-b948-e4d6d38d6768.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "laplacian_var": 39.24
+      }
+    ],
+    "perceptual_cross_class_matches": [
+      {
+        "distance": 0,
+        "image_a": "53/53_original_96_original_96.png_2ad2b06c-091d-4e43-8f77-136fdd537ddb.png_9762f100-c3ee-41fc-a803-fd3829240af7.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "val",
+        "image_b": "55/55_original_98_original_98.png_3ff15261-2cf2-4dbe-b18d-9e92897abfde.png_8df62e9e-bdf6-4728-ba70-1b42bc6d867c.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "23/66_original_66.png_4e2b57cb-982b-4ef2-b3f0-24527eb38085.png",
+        "class_a": 23,
+        "name_a": "Turn left",
+        "split_a": "train",
+        "image_b": "24/67_original_67.png_65d044a6-8070-4644-9b47-bacb88621f49.png",
+        "class_b": 24,
+        "name_b": "Turn right",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/53_original_96_original_96.png_5db185b3-4d4f-401f-8272-8427ff093b88.png_7b536a4f-b8ec-40f8-a233-2580a00b6b4f.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/98_original_98.png_c8879b04-4e92-4c81-aee0-855b12bcade9.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "23/23_original_66_original_66.png_4121f891-61ef-4f0e-8fe8-3df649f276a8.png_00f39e40-bb70-44b8-b068-cd81321fba95.png",
+        "class_a": 23,
+        "name_a": "Turn left",
+        "split_a": "train",
+        "image_b": "24/67_original_67.png_57353309-9f0c-45b4-a2db-2edf2b59316e.png",
+        "class_b": 24,
+        "name_b": "Turn right",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "42/85_original_85.png_bfc24c09-c84e-4669-b108-5c8f47d6ce25.png",
+        "class_a": 42,
+        "name_a": "Staggered side road junction",
+        "split_a": "train",
+        "image_b": "43/86_original_86.png_9df1db23-88f1-4c21-9261-8a83398af2eb.png",
+        "class_b": 43,
+        "name_b": "Staggered side road junction",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/53_original_96_original_96.png_2ad2b06c-091d-4e43-8f77-136fdd537ddb.png_e004d65a-bbe5-4b0e-a902-bc4964b35ca0.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "val",
+        "image_b": "55/55_original_98_original_98.png_cf8c437f-46f1-4720-b5dd-f58b1b0a7f35.png_4806ca05-5d31-491c-9686-0ccef3174a10.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "15/15_original_58_original_58.png_5c8b8933-8f49-4db2-a988-5faffd800fc1.png_dc5e4518-65b1-4cc6-8eaa-9f91fedc81cb.png",
+        "class_a": 15,
+        "name_a": "No left turn",
+        "split_a": "train",
+        "image_b": "16/16_original_59_original_59.png_1f816118-19ee-4cba-a989-d09e10739b1f.png_2c47b4aa-e519-4bb1-a717-0de03446b226.png",
+        "class_b": 16,
+        "name_b": "No right turn",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/53_original_96_original_96.png_5db185b3-4d4f-401f-8272-8427ff093b88.png_7b536a4f-b8ec-40f8-a233-2580a00b6b4f.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/98_original_98.png_d5574538-1368-45b9-900e-f00eede0b27d.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "42/42_original_85_original_85.png_1a6a4566-3c6b-4b38-9e22-8d65921b4fd4.png_2890c39a-9d44-4453-8285-fc2b0dbbfb89.png",
+        "class_a": 42,
+        "name_a": "Staggered side road junction",
+        "split_a": "train",
+        "image_b": "43/86_original_86.png_b0277c8b-a7da-488f-9da1-19ef50787d17.png",
+        "class_b": 43,
+        "name_b": "Staggered side road junction",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/53_original_96_original_96.png_9401da51-bb16-44ca-8aa8-b978f49065d8.png_02b17860-9f8e-4a93-a5ef-7efaf1e7faa9.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/55_original_98_original_98.png_d5574538-1368-45b9-900e-f00eede0b27d.png_0dc1696e-fc4b-406c-97d3-1d125df5aeb4.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "47/47_original_90_original_90.png_36c28a97-56f5-480f-b919-b566cc1d3a59.png_de0a6de2-3403-47c6-a343-a3010375c060.png",
+        "class_a": 47,
+        "name_a": "Level crossing countdown marker",
+        "split_a": "train",
+        "image_b": "48/91_original_91.png_58265f18-9e00-4af7-91c1-833ad826f071.png",
+        "class_b": 48,
+        "name_b": "Level crossing countdown marker",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/96_original_96.png_2ad2b06c-091d-4e43-8f77-136fdd537ddb.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/55_original_98_original_98.png_cf8c437f-46f1-4720-b5dd-f58b1b0a7f35.png_4806ca05-5d31-491c-9686-0ccef3174a10.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/96_original_96.png_5ed14c18-50d7-4e32-a0d7-94537d332b58.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/98_original_98.png_d5574538-1368-45b9-900e-f00eede0b27d.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/53_original_96_original_96.png_8378ddba-9fc1-49f3-802e-1ea14ce36b30.png_56134611-0f9a-4998-b7a4-e2a0e75f7c08.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/98_original_98.png_24067a15-73a3-4f24-ac26-2b7e6162d9bc.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/53_original_96_original_96.png_8ce7456a-0c72-4556-91b5-6b4dd9b71b18.png_044c36ea-703a-4ee0-8099-279f6f394827.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/55_original_98_original_98.png_7f2d6381-3f33-447b-b801-9a7c021ce0bf.png_6711641a-7756-4813-a64a-0d0b7ee95aae.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "23/66_original_66.png_640c8e23-9d6b-4da8-afab-40dd3d97d48f.png",
+        "class_a": 23,
+        "name_a": "Turn left",
+        "split_a": "train",
+        "image_b": "24/24_original_67_original_67.png_175b0c54-86f5-42a3-88ab-239d32f78bc6.png_314636c7-96c3-4369-bfd4-3ef5a7abb720.png",
+        "class_b": 24,
+        "name_b": "Turn right",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "49/92.png",
+        "class_a": 49,
+        "name_a": "Level crossing countdown marker",
+        "split_a": "train",
+        "image_b": "50/50_original_93_original_93.png_04e5050b-4aa3-4cad-a650-e26b7b377c32.png_4f757f5c-0a88-412d-a49b-575777955033.png",
+        "class_b": 50,
+        "name_b": "Level crossing countdown marker",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/53_original_96_original_96.png_9401da51-bb16-44ca-8aa8-b978f49065d8.png_02b17860-9f8e-4a93-a5ef-7efaf1e7faa9.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/55_original_98_original_98.png_c8879b04-4e92-4c81-aee0-855b12bcade9.png_080eca6d-9c98-498e-9635-97e4e8a13e67.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "36/36_original_79_original_79.png_7940804a-a41c-4907-b4ac-db93adedb9a2.png_6074f8ea-d09b-4fb3-986d-dbf8e582355a.png",
+        "class_a": 36,
+        "name_a": "Side road junction",
+        "split_a": "train",
+        "image_b": "40/40_original_83_original_83.png_04c3489b-0336-4477-9fff-74d713b084c6.png_7b99c39e-a4b8-4ce0-a1ba-d74b4ce2e1ea.png",
+        "class_b": 40,
+        "name_b": "T-junction",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "5/5_original_48_original_48.png_8018ae3c-af6b-493d-8d94-cb02151b7b31.png_3be45853-c4aa-4ed9-b156-45b9afcee6d2.png",
+        "class_a": 5,
+        "name_a": "No entry for cycles",
+        "split_a": "train",
+        "image_b": "22/22_original_65_original_65.png_7354ef82-722e-4ab1-baa2-c58c12f2bf62.png_84bcc7b3-f7a2-4e9b-a8ee-bea03a20f99a.png",
+        "class_b": 22,
+        "name_b": "No stopping",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/53_original_96_original_96.png_9401da51-bb16-44ca-8aa8-b978f49065d8.png_02b17860-9f8e-4a93-a5ef-7efaf1e7faa9.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/55_original_98_original_98.png_70986332-9e73-4132-8c30-72b5becf6ce0.png_71344b99-09aa-401d-be4a-516e8fb9feb8.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/96_original_96.png_2ad2b06c-091d-4e43-8f77-136fdd537ddb.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/55_original_98.png_951c0086-586f-48d1-a4bd-8ebc1208163b.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "22/22_original_65_original_65.png_a61f4c89-7f91-451d-9ad9-eac16916ea09.png_d0c70108-09c2-4c86-a132-861265775589.png",
+        "class_a": 22,
+        "name_a": "No stopping",
+        "split_a": "train",
+        "image_b": "26/26_original_69_original_69.png_9d6a4685-97ad-45cb-bc92-66aacc4469cf.png_6185344b-3fed-4cd6-9b51-769caafed4e3.png",
+        "class_b": 26,
+        "name_b": "Steep ascent",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "16/16_original_59_original_59.png_1f816118-19ee-4cba-a989-d09e10739b1f.png_2c47b4aa-e519-4bb1-a717-0de03446b226.png",
+        "class_a": 16,
+        "name_a": "No right turn",
+        "split_a": "train",
+        "image_b": "22/22_original_65_original_65.png_a61f4c89-7f91-451d-9ad9-eac16916ea09.png_d0c70108-09c2-4c86-a132-861265775589.png",
+        "class_b": 22,
+        "name_b": "No stopping",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "36/36_original_79_original_79.png_cc7ff265-8bb0-46fe-862b-43e52ff4e49d.png_95ec9955-f7a0-47bd-96c6-f0da723d6938.png",
+        "class_a": 36,
+        "name_a": "Side road junction",
+        "split_a": "train",
+        "image_b": "37/80.png",
+        "class_b": 37,
+        "name_b": "Side road junction",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "3/3_original_46_original_46.png_a6798576-768b-4ab9-9b90-c4079e8a5c2c.png_9ab0ebad-2ce9-4ad2-abd5-a7f52bd41981.png",
+        "class_a": 3,
+        "name_a": "One-way traffic",
+        "split_a": "train",
+        "image_b": "8/8_original_51_original_51.png_6a9df54a-15c3-4843-b72d-b12af7f3bca5.png_6a40fad2-2872-4fbb-b324-641b38a831cf.png",
+        "class_b": 8,
+        "name_b": "No entry for bullock carts",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "3/3_original_46_original_46.png_a6798576-768b-4ab9-9b90-c4079e8a5c2c.png_9ab0ebad-2ce9-4ad2-abd5-a7f52bd41981.png",
+        "class_a": 3,
+        "name_a": "One-way traffic",
+        "split_a": "train",
+        "image_b": "5/5_original_48_original_48.png_8b109244-b265-499a-9ee5-1795bdbefb2d.png_d8e50020-a6d5-4b30-9bec-181d8a365ce3.png",
+        "class_b": 5,
+        "name_b": "No entry for cycles",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "16/59_original_59.png_cae6071d-dc27-410c-bd61-fc79aa3e71bf.png",
+        "class_a": 16,
+        "name_a": "No right turn",
+        "split_a": "train",
+        "image_b": "21/21_original_64_original_64.png_d5d7598d-44cb-46bf-822c-c3e6f1e282a9.png_2b3aeb4a-7578-4d2f-ab55-aa03f90b3992.png",
+        "class_b": 21,
+        "name_b": "No parking",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/53_original_96_original_96.png_9401da51-bb16-44ca-8aa8-b978f49065d8.png_02b17860-9f8e-4a93-a5ef-7efaf1e7faa9.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/55_original_98_original_98.png_c8879b04-4e92-4c81-aee0-855b12bcade9.png_ba2d0184-1a42-4068-b2d9-a2705d01bcb4.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/96_original_96.png_8378ddba-9fc1-49f3-802e-1ea14ce36b30.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/55_original_98_original_98.png_a4b7baba-f112-4ee7-a13a-afa2c1bc1bc1.png_9813c4e3-0f7d-4716-a4d2-b2a69c3ca32a.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "23/23_original_66_original_66.png_cc637cbb-1e6f-4b62-a93d-a99039f64ba2.png_62f9ec49-8358-46a5-b2b4-87ae6dafdb86.png",
+        "class_a": 23,
+        "name_a": "Turn left",
+        "split_a": "train",
+        "image_b": "24/67.png",
+        "class_b": 24,
+        "name_b": "Turn right",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/96_original_96.png_41bc077f-b2d3-4264-9332-51231da88561.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/55_original_98_original_98.png_03446aea-2127-475a-a4b4-f5170b7d6ccb.png_d03a1a8f-8fb1-4fbd-a17c-f7603005950d.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/53_original_96_original_96.png_2ad2b06c-091d-4e43-8f77-136fdd537ddb.png_9762f100-c3ee-41fc-a803-fd3829240af7.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "val",
+        "image_b": "55/55_original_98_original_98.png_0330bd4e-5f68-400c-a19b-de693ccca314.png_d3ac81a6-244b-456a-be72-522467af9cba.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/53_original_96_original_96.png_909bd4ec-cbc9-494d-aec1-5263f76d5248.png_6cbb9a9f-cd85-411f-b6b8-5bd8cc2ede53.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/55_original_98_original_98.png_c8879b04-4e92-4c81-aee0-855b12bcade9.png_080eca6d-9c98-498e-9635-97e4e8a13e67.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "40/83_original_83.png_ab18906c-3aa8-454d-b70e-33947acd459b.png",
+        "class_a": 40,
+        "name_a": "T-junction",
+        "split_a": "train",
+        "image_b": "45/88_original_88.png_20f7a945-9c1c-42be-9838-299f7e70002e.png",
+        "class_b": 45,
+        "name_b": "Guarded level crossing ahead",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/53_original_96_original_96.png_909bd4ec-cbc9-494d-aec1-5263f76d5248.png_6cbb9a9f-cd85-411f-b6b8-5bd8cc2ede53.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/55_original_98_original_98.png_70986332-9e73-4132-8c30-72b5becf6ce0.png_71344b99-09aa-401d-be4a-516e8fb9feb8.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "47/47_original_90.png_a83aba42-4e39-4f9a-924e-d4cc91d4eddc.png",
+        "class_a": 47,
+        "name_a": "Level crossing countdown marker",
+        "split_a": "train",
+        "image_b": "48/48_original_91_original_91.png_69bbf541-539b-4e83-a6be-6486a8f2b8e9.png_2621a4bf-7efc-4c5d-a05f-cd9f0aeb6336.png",
+        "class_b": 48,
+        "name_b": "Level crossing countdown marker",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "23/66_original_66.png_f28b1954-2cd0-4fde-b2b1-966216014f87.png",
+        "class_a": 23,
+        "name_a": "Turn left",
+        "split_a": "train",
+        "image_b": "24/24_original_67_original_67.png_45cdff4a-2726-4761-87f6-db469189132f.png_d56e2b38-7105-4c35-99f0-2fde25fd313e.png",
+        "class_b": 24,
+        "name_b": "Turn right",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/53_original_96.png_239b907f-3543-45f2-9661-0c62c83fcd2b.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/55_original_98_original_98.png_ccd7cdbe-036a-4749-ad29-4832b919e655.png_7b2dd00a-6be4-4192-8a4c-6201e3c77e98.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/96_original_96.png_5ed14c18-50d7-4e32-a0d7-94537d332b58.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/55_original_98_original_98.png_022aa8cf-6162-48f9-82f1-5677a7716707.png_89e399f4-9b6b-40ca-b616-89d6ecd71ae6.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "49/92_original_92.png_b1c7175c-2629-460b-b3dd-3b21e8dc5ab3.png",
+        "class_a": 49,
+        "name_a": "Level crossing countdown marker",
+        "split_a": "train",
+        "image_b": "50/93_original_93.png_7952679b-476b-486e-9617-c88b434a17a1.png",
+        "class_b": 50,
+        "name_b": "Level crossing countdown marker",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "8/8_original_51_original_51.png_6a9df54a-15c3-4843-b72d-b12af7f3bca5.png_3eb0f414-bbc0-4ad2-807d-ade8f6e0072b.png",
+        "class_a": 8,
+        "name_a": "No entry for bullock carts",
+        "split_a": "train",
+        "image_b": "49/92_original_92.png_ba738c20-e5a2-4bc3-871c-0af0d084b74e.png",
+        "class_b": 49,
+        "name_b": "Level crossing countdown marker",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "23/66_original_66.png_eb26a499-eeed-4f4e-834f-99685eaa2349.png",
+        "class_a": 23,
+        "name_a": "Turn left",
+        "split_a": "val",
+        "image_b": "24/24_original_67_original_67.png_ef0449f9-d18f-468a-963d-267411de83f3.png_5d6f5fd5-ac81-46da-b29d-f6fea0c5eda4.png",
+        "class_b": 24,
+        "name_b": "Turn right",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "23/66_original_66.png_220d2122-701b-4de5-9b94-eaac1716ee99.png",
+        "class_a": 23,
+        "name_a": "Turn left",
+        "split_a": "train",
+        "image_b": "24/67_original_67.png_0e2991ba-6074-4eff-8b3c-f800a4bf2e80.png",
+        "class_b": 24,
+        "name_b": "Turn right",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "23/66.png",
+        "class_a": 23,
+        "name_a": "Turn left",
+        "split_a": "train",
+        "image_b": "24/67_original_67.png_1274ba13-bcb1-40fe-830e-1fc987f6af95.png",
+        "class_b": 24,
+        "name_b": "Turn right",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "16/59_original_59.png_59a853df-935e-4ceb-8660-0113be335925.png",
+        "class_a": 16,
+        "name_a": "No right turn",
+        "split_a": "train",
+        "image_b": "21/21_original_64_original_64.png_e668c949-def5-4734-bb07-7668c87456e6.png_486a6f85-6979-484f-98eb-eeed016dfbfb.png",
+        "class_b": 21,
+        "name_b": "No parking",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/96_original_96.png_8378ddba-9fc1-49f3-802e-1ea14ce36b30.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/55_original_98_original_98.png_cf8c437f-46f1-4720-b5dd-f58b1b0a7f35.png_4806ca05-5d31-491c-9686-0ccef3174a10.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "16/59_original_59.png_a107e81e-0774-4c7e-90bd-efc32826e487.png",
+        "class_a": 16,
+        "name_a": "No right turn",
+        "split_a": "train",
+        "image_b": "21/64_original_64.png_676c8d94-1642-42a1-948a-cb6f9f862be5.png",
+        "class_b": 21,
+        "name_b": "No parking",
+        "split_b": "train"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/53_original_96_original_96.png_41bc077f-b2d3-4264-9332-51231da88561.png_ab990317-b5c3-431a-9274-b6434e75c435.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "val",
+        "image_b": "55/55_original_98_original_98.png_d5574538-1368-45b9-900e-f00eede0b27d.png_0dc1696e-fc4b-406c-97d3-1d125df5aeb4.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "val"
+      },
+      {
+        "distance": 0,
+        "image_a": "53/53_original_96_original_96.png_8ce7456a-0c72-4556-91b5-6b4dd9b71b18.png_c74641d4-b876-4500-b8f4-5b8469972a37.png",
+        "class_a": 53,
+        "name_a": "First aid post",
+        "split_a": "train",
+        "image_b": "55/55_original_98_original_98.png_1938ba5a-c3f9-4cb7-a755-113f6e55182a.png_325cd79f-1873-4667-bde6-cdf67e430d95.png",
+        "class_b": 55,
+        "name_b": "Filling station",
+        "split_b": "train"
+      }
+    ]
+  },
+  "medium_priority_issues": {
+    "low_contrast_sample": [
+      {
+        "path": "3/3_original_46_original_46.png_a6798576-768b-4ab9-9b90-c4079e8a5c2c.png_9ab0ebad-2ce9-4ad2-abd5-a7f52bd41981.png",
+        "class_id": 3,
+        "class_name": "One-way traffic",
+        "contrast": 0.0
+      },
+      {
+        "path": "5/5_original_48_original_48.png_8b109244-b265-499a-9ee5-1795bdbefb2d.png_c7ceb7ca-9471-4402-a597-c6441950d051.png",
+        "class_id": 5,
+        "class_name": "No entry for cycles",
+        "contrast": 0.0
+      },
+      {
+        "path": "5/5_original_48_original_48.png_8b109244-b265-499a-9ee5-1795bdbefb2d.png_d8e50020-a6d5-4b30-9bec-181d8a365ce3.png",
+        "class_id": 5,
+        "class_name": "No entry for cycles",
+        "contrast": 0.0
+      },
+      {
+        "path": "8/8_original_51_original_51.png_6a9df54a-15c3-4843-b72d-b12af7f3bca5.png_3eb0f414-bbc0-4ad2-807d-ade8f6e0072b.png",
+        "class_id": 8,
+        "class_name": "No entry for bullock carts",
+        "contrast": 0.0
+      },
+      {
+        "path": "8/8_original_51_original_51.png_6a9df54a-15c3-4843-b72d-b12af7f3bca5.png_6a40fad2-2872-4fbb-b324-641b38a831cf.png",
+        "class_id": 8,
+        "class_name": "No entry for bullock carts",
+        "contrast": 0.0
+      },
+      {
+        "path": "8/8_original_51_original_51.png_6a9df54a-15c3-4843-b72d-b12af7f3bca5.png_6cfc0c8e-6c98-4bda-b261-41bbdbc82ded.png",
+        "class_id": 8,
+        "class_name": "No entry for bullock carts",
+        "contrast": 0.0
+      },
+      {
+        "path": "16/16_original_59_original_59.png_1f816118-19ee-4cba-a989-d09e10739b1f.png_2c47b4aa-e519-4bb1-a717-0de03446b226.png",
+        "class_id": 16,
+        "class_name": "No right turn",
+        "contrast": 0.0
+      },
+      {
+        "path": "20/20_original_63_original_63.png_72672e43-fd55-4471-9de2-d42fcf8e77ae.png_6d5ffe89-242d-4f20-b8cd-52a479b8cd95.png",
+        "class_id": 20,
+        "class_name": "Horn prohibited",
+        "contrast": 0.0
+      },
+      {
+        "path": "20/20_original_63_original_63.png_811d2758-1889-4466-9a45-6ae84b7ba9d7.png_cc95cb6e-25a6-4486-9229-56b0e7b6c58e.png",
+        "class_id": 20,
+        "class_name": "Horn prohibited",
+        "contrast": 0.0
+      },
+      {
+        "path": "22/22_original_65_original_65.png_45721ed2-259d-43c8-931d-bf44e3cbb4dc.png_0bfb76ab-3eb4-4c9f-8d97-4eb2b8c32017.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "contrast": 0.0
+      },
+      {
+        "path": "22/22_original_65_original_65.png_4d0eccc8-ee43-4f75-8f0d-6d1933d5d00a.png_9f3549ee-db3c-4d2f-b0e4-ed3d86c2a6bb.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "contrast": 0.0
+      },
+      {
+        "path": "22/22_original_65_original_65.png_a61f4c89-7f91-451d-9ad9-eac16916ea09.png_d0c70108-09c2-4c86-a132-861265775589.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "contrast": 0.0
+      },
+      {
+        "path": "26/26_original_69_original_69.png_9d6a4685-97ad-45cb-bc92-66aacc4469cf.png_6185344b-3fed-4cd6-9b51-769caafed4e3.png",
+        "class_id": 26,
+        "class_name": "Steep ascent",
+        "contrast": 0.0
+      },
+      {
+        "path": "22/22_original_65_original_65.png_1dcfdc0e-0c5b-4b13-a869-7b1586a5de9e.png_8e26a229-e2af-48ce-9efd-423f80917316.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "contrast": 6.93
+      },
+      {
+        "path": "22/22_original_65_original_65.png_ec9034f6-9c70-493e-b346-6671df26e121.png_5014bb23-53a7-4ab6-98d7-62afde233f6e.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "contrast": 7.7
+      },
+      {
+        "path": "18/18_original_61_original_61.png_e27f4f2d-34db-4465-aacc-b7bf0139048d.png_c77fdefe-ba4b-40a6-a97b-4dacdfe57f41.png",
+        "class_id": 18,
+        "class_name": "Maximum speed limit (90 km/h)",
+        "contrast": 7.96
+      },
+      {
+        "path": "22/22_original_65_original_65.png_c3b2a00d-18b5-42b7-8679-df4308a7f616.png_9cfb9eaa-0e42-4e56-a116-e3ad733a9833.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "contrast": 9.08
+      },
+      {
+        "path": "22/22_original_65_original_65.png_a897f061-df22-4d3c-8393-2984c95f402b.png_363bc653-afe7-46b7-b948-e4d6d38d6768.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "contrast": 9.38
+      },
+      {
+        "path": "15/15_original_58_original_58.png_5c8b8933-8f49-4db2-a988-5faffd800fc1.png_dc5e4518-65b1-4cc6-8eaa-9f91fedc81cb.png",
+        "class_id": 15,
+        "class_name": "No left turn",
+        "contrast": 11.26
+      },
+      {
+        "path": "22/22_original_65_original_65.png_298bdf75-455d-46c7-ae35-b2a3a43683fa.png_4e8d0682-999d-40b2-b35f-45fa9ad5db89.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "contrast": 11.68
+      },
+      {
+        "path": "22/22_original_65_original_65.png_298bdf75-455d-46c7-ae35-b2a3a43683fa.png_02890798-b8dd-4d1a-892c-361370ad2937.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "contrast": 11.79
+      },
+      {
+        "path": "22/65_original_65.png_da773418-c3c1-491a-98df-bfc7d416f545.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "contrast": 11.89
+      },
+      {
+        "path": "22/22_original_65_original_65.png_da773418-c3c1-491a-98df-bfc7d416f545.png_b4b6a142-49c5-497e-8864-ec76ce139cb3.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "contrast": 11.92
+      },
+      {
+        "path": "22/22_original_65_original_65.png_da773418-c3c1-491a-98df-bfc7d416f545.png_6dfb3602-d39b-4ac0-bcc8-2abd56dd3df8.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "contrast": 11.99
+      },
+      {
+        "path": "15/15_original_58_original_58.png_d51a78dd-241a-4813-87af-341049d0e892.png_2da97507-77aa-47f9-ba76-f429f1268b16.png",
+        "class_id": 15,
+        "class_name": "No left turn",
+        "contrast": 12.91
+      },
+      {
+        "path": "20/20_original_63_original_63.png_6fc13600-99fa-4d5f-8f10-acc5587f8226.png_40fcb100-6d8f-40e3-ab62-ea3635d35310.png",
+        "class_id": 20,
+        "class_name": "Horn prohibited",
+        "contrast": 13.0
+      },
+      {
+        "path": "22/22_original_65_original_65.png_c38a2719-3b9c-4536-b6f2-914e7015702a.png_b2dc5d15-edac-40ed-afc5-bed49464a95a.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "contrast": 13.04
+      },
+      {
+        "path": "20/20_original_63_original_63.png_3057edaf-1d21-4d9a-9b4c-80a99fdd0783.png_17b42da0-5b0a-402a-9a96-dfd59fa141a7.png",
+        "class_id": 20,
+        "class_name": "Horn prohibited",
+        "contrast": 13.06
+      },
+      {
+        "path": "22/22_original_65_original_65.png_e21df9f4-ba12-4362-af28-db28d89ed674.png_f0dd6e80-d2fe-4b7c-ac30-536ee6dd5cb5.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "contrast": 13.78
+      },
+      {
+        "path": "22/22_original_65_original_65.png_29d8dd09-f874-4169-866b-ccab098cb99e.png_29c5dd7f-c1f0-4c9e-ba79-512f593f261c.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "contrast": 14.62
+      },
+      {
+        "path": "1/1_original_44_original_44.png_3c82afec-56a9-4af3-a612-e394121d9ee7.png_dcfce119-9d34-4dae-9d75-daaa21f94a81.png",
+        "class_id": 1,
+        "class_name": "No entry",
+        "contrast": 14.92
+      },
+      {
+        "path": "20/20_original_63_original_63.png_f163dfb3-bf4b-45b6-9a0d-5faa7f332209.png_5c992a91-9dbc-425e-8f99-c4665103d4c9.png",
+        "class_id": 20,
+        "class_name": "Horn prohibited",
+        "contrast": 15.02
+      },
+      {
+        "path": "22/22_original_65_original_65.png_7354ef82-722e-4ab1-baa2-c58c12f2bf62.png_b2cbd247-2753-4b52-86df-8a602fe49a7f.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "contrast": 15.03
+      },
+      {
+        "path": "11/11_original_54_original_54.png_91e70bca-e04e-4e93-9aa6-ab90432a1f12.png_8995b02c-5107-4c5a-9e4e-284d693feef3.png",
+        "class_id": 11,
+        "class_name": "Height limit",
+        "contrast": 15.25
+      },
+      {
+        "path": "1/1_original_44_original_44.png_3c82afec-56a9-4af3-a612-e394121d9ee7.png_4ffae92a-f82c-4c65-9d7b-7cefe22b4887.png",
+        "class_id": 1,
+        "class_name": "No entry",
+        "contrast": 15.43
+      },
+      {
+        "path": "22/22_original_65_original_65.png_ee054cf1-495d-4ab7-a52f-aff5dcaaad0f.png_3fc0df5e-7ad1-4b64-9115-52cffed99a60.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "contrast": 15.68
+      },
+      {
+        "path": "16/16_original_59_original_59.png_692b4cf0-6911-4e0f-9523-90726c40ef41.png_2f976542-94be-4df3-b24c-9fb311121178.png",
+        "class_id": 16,
+        "class_name": "No right turn",
+        "contrast": 15.82
+      },
+      {
+        "path": "57/57_original_100_original_100.png_33cfb73b-20cb-4dee-8dec-e9cd377185ae.png_2e88b46d-41bf-4b87-9816-9ffacf4d6e5d.png",
+        "class_id": 57,
+        "class_name": "Restaurant",
+        "contrast": 15.91
+      },
+      {
+        "path": "20/20_original_63_original_63.png_b341d854-9563-4f52-95d0-d629ec0fcf16.png_cbf3a3d3-b47c-4e5f-a989-0b9b3bfa6436.png",
+        "class_id": 20,
+        "class_name": "Horn prohibited",
+        "contrast": 16.58
+      },
+      {
+        "path": "20/20_original_63_original_63.png_d2531ade-62a7-4d11-8485-dcd5c8d400fa.png_cf465999-231f-42a5-91cf-a72e0f3792ec.png",
+        "class_id": 20,
+        "class_name": "Horn prohibited",
+        "contrast": 16.88
+      },
+      {
+        "path": "22/65_original_65.png_d226b922-31c6-4e32-9f3f-40bfa29901aa.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "contrast": 16.96
+      },
+      {
+        "path": "8/8_original_51_original_51.png_5a75bdf7-0c22-45f7-bd68-2e75127e16f6.png_4e18892e-94e6-4557-b423-b3c314ac8b53.png",
+        "class_id": 8,
+        "class_name": "No entry for bullock carts",
+        "contrast": 17.06
+      },
+      {
+        "path": "22/22_original_65_original_65.png_d226b922-31c6-4e32-9f3f-40bfa29901aa.png_2532db4f-347b-405c-8773-967b2ad6ac72.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "contrast": 17.1
+      },
+      {
+        "path": "21/21_original_64_original_64.png_217ad654-c194-45b8-880d-3a68765c8e11.png_b1b143fc-e859-4f65-8341-cb3ac4cfcdef.png",
+        "class_id": 21,
+        "class_name": "No parking",
+        "contrast": 17.49
+      },
+      {
+        "path": "22/22_original_65_original_65.png_e21df9f4-ba12-4362-af28-db28d89ed674.png_c4962c2b-d45b-4a9b-8692-992375cc12c2.png",
+        "class_id": 22,
+        "class_name": "No stopping",
+        "contrast": 17.97
+      }
+    ],
+    "anomalous_shapes_sample": [],
+    "exact_duplicates_within_class_count": 0
+  },
+  "class_distribution": [
+    {
+      "class_id": 49,
+      "class_name": "Level crossing countdown marker",
+      "total_samples": 49,
+      "train_samples": 42,
+      "val_samples": 7
+    },
+    {
+      "class_id": 47,
+      "class_name": "Level crossing countdown marker",
+      "total_samples": 134,
+      "train_samples": 114,
+      "val_samples": 20
+    },
+    {
+      "class_id": 22,
+      "class_name": "No stopping",
+      "total_samples": 153,
+      "train_samples": 131,
+      "val_samples": 22
+    },
+    {
+      "class_id": 48,
+      "class_name": "Level crossing countdown marker",
+      "total_samples": 156,
+      "train_samples": 133,
+      "val_samples": 23
+    },
+    {
+      "class_id": 50,
+      "class_name": "Level crossing countdown marker",
+      "total_samples": 176,
+      "train_samples": 150,
+      "val_samples": 26
+    },
+    {
+      "class_id": 17,
+      "class_name": "No overtaking",
+      "total_samples": 179,
+      "train_samples": 153,
+      "val_samples": 26
+    },
+    {
+      "class_id": 24,
+      "class_name": "Turn right",
+      "total_samples": 179,
+      "train_samples": 153,
+      "val_samples": 26
+    },
+    {
+      "class_id": 29,
+      "class_name": "Unprotected quay",
+      "total_samples": 179,
+      "train_samples": 153,
+      "val_samples": 26
+    },
+    {
+      "class_id": 42,
+      "class_name": "Staggered side road junction",
+      "total_samples": 180,
+      "train_samples": 153,
+      "val_samples": 27
+    },
+    {
+      "class_id": 28,
+      "class_name": "Narrow bridge",
+      "total_samples": 181,
+      "train_samples": 154,
+      "val_samples": 27
+    },
+    {
+      "class_id": 1,
+      "class_name": "No entry",
+      "total_samples": 183,
+      "train_samples": 156,
+      "val_samples": 27
+    },
+    {
+      "class_id": 21,
+      "class_name": "No parking",
+      "total_samples": 183,
+      "train_samples": 156,
+      "val_samples": 27
+    },
+    {
+      "class_id": 45,
+      "class_name": "Guarded level crossing ahead",
+      "total_samples": 183,
+      "train_samples": 156,
+      "val_samples": 27
+    },
+    {
+      "class_id": 56,
+      "class_name": "Hotel",
+      "total_samples": 183,
+      "train_samples": 156,
+      "val_samples": 27
+    },
+    {
+      "class_id": 58,
+      "class_name": "Refreshments",
+      "total_samples": 183,
+      "train_samples": 156,
+      "val_samples": 27
+    },
+    {
+      "class_id": 36,
+      "class_name": "Side road junction",
+      "total_samples": 184,
+      "train_samples": 157,
+      "val_samples": 27
+    },
+    {
+      "class_id": 9,
+      "class_name": "No entry for hand carts",
+      "total_samples": 185,
+      "train_samples": 158,
+      "val_samples": 27
+    },
+    {
+      "class_id": 11,
+      "class_name": "Height limit",
+      "total_samples": 185,
+      "train_samples": 158,
+      "val_samples": 27
+    },
+    {
+      "class_id": 12,
+      "class_name": "Weight limit",
+      "total_samples": 185,
+      "train_samples": 158,
+      "val_samples": 27
+    },
+    {
+      "class_id": 16,
+      "class_name": "No right turn",
+      "total_samples": 185,
+      "train_samples": 158,
+      "val_samples": 27
+    },
+    {
+      "class_id": 41,
+      "class_name": "Y-junction",
+      "total_samples": 185,
+      "train_samples": 158,
+      "val_samples": 27
+    },
+    {
+      "class_id": 4,
+      "class_name": "No vehicles in both directions",
+      "total_samples": 186,
+      "train_samples": 159,
+      "val_samples": 27
+    },
+    {
+      "class_id": 13,
+      "class_name": "Axle weight limit",
+      "total_samples": 186,
+      "train_samples": 159,
+      "val_samples": 27
+    },
+    {
+      "class_id": 26,
+      "class_name": "Steep ascent",
+      "total_samples": 186,
+      "train_samples": 159,
+      "val_samples": 27
+    },
+    {
+      "class_id": 27,
+      "class_name": "Narrow road",
+      "total_samples": 186,
+      "train_samples": 159,
+      "val_samples": 27
+    },
+    {
+      "class_id": 32,
+      "class_name": "Loose gravel",
+      "total_samples": 186,
+      "train_samples": 159,
+      "val_samples": 27
+    },
+    {
+      "class_id": 35,
+      "class_name": "Crossroads",
+      "total_samples": 186,
+      "train_samples": 159,
+      "val_samples": 27
+    },
+    {
+      "class_id": 3,
+      "class_name": "One-way traffic",
+      "total_samples": 187,
+      "train_samples": 159,
+      "val_samples": 28
+    },
+    {
+      "class_id": 15,
+      "class_name": "No left turn",
+      "total_samples": 188,
+      "train_samples": 160,
+      "val_samples": 28
+    },
+    {
+      "class_id": 18,
+      "class_name": "Maximum speed limit (90 km/h)",
+      "total_samples": 188,
+      "train_samples": 160,
+      "val_samples": 28
+    },
+    {
+      "class_id": 23,
+      "class_name": "Turn left",
+      "total_samples": 188,
+      "train_samples": 160,
+      "val_samples": 28
+    },
+    {
+      "class_id": 25,
+      "class_name": "Steep descent",
+      "total_samples": 188,
+      "train_samples": 160,
+      "val_samples": 28
+    },
+    {
+      "class_id": 34,
+      "class_name": "Cattle",
+      "total_samples": 188,
+      "train_samples": 160,
+      "val_samples": 28
+    },
+    {
+      "class_id": 46,
+      "class_name": "Unguarded level crossing ahead",
+      "total_samples": 188,
+      "train_samples": 160,
+      "val_samples": 28
+    },
+    {
+      "class_id": 0,
+      "class_name": "Give way",
+      "total_samples": 189,
+      "train_samples": 161,
+      "val_samples": 28
+    },
+    {
+      "class_id": 6,
+      "class_name": "No entry for goods vehicles",
+      "total_samples": 189,
+      "train_samples": 161,
+      "val_samples": 28
+    },
+    {
+      "class_id": 10,
+      "class_name": "No entry for motor vehicles",
+      "total_samples": 189,
+      "train_samples": 161,
+      "val_samples": 28
+    },
+    {
+      "class_id": 19,
+      "class_name": "Maximum speed limit (110 km/h)",
+      "total_samples": 189,
+      "train_samples": 161,
+      "val_samples": 28
+    },
+    {
+      "class_id": 30,
+      "class_name": "Road hump",
+      "total_samples": 190,
+      "train_samples": 162,
+      "val_samples": 28
+    },
+    {
+      "class_id": 14,
+      "class_name": "Length limit",
+      "total_samples": 191,
+      "train_samples": 163,
+      "val_samples": 28
+    },
+    {
+      "class_id": 37,
+      "class_name": "Side road junction",
+      "total_samples": 191,
+      "train_samples": 163,
+      "val_samples": 28
+    },
+    {
+      "class_id": 31,
+      "class_name": "Dip",
+      "total_samples": 192,
+      "train_samples": 164,
+      "val_samples": 28
+    },
+    {
+      "class_id": 38,
+      "class_name": "Oblique side road junction",
+      "total_samples": 192,
+      "train_samples": 164,
+      "val_samples": 28
+    },
+    {
+      "class_id": 57,
+      "class_name": "Restaurant",
+      "total_samples": 192,
+      "train_samples": 164,
+      "val_samples": 28
+    },
+    {
+      "class_id": 40,
+      "class_name": "T-junction",
+      "total_samples": 193,
+      "train_samples": 165,
+      "val_samples": 28
+    },
+    {
+      "class_id": 44,
+      "class_name": "Roundabout",
+      "total_samples": 193,
+      "train_samples": 165,
+      "val_samples": 28
+    },
+    {
+      "class_id": 7,
+      "class_name": "No entry for pedestrians",
+      "total_samples": 194,
+      "train_samples": 165,
+      "val_samples": 29
+    },
+    {
+      "class_id": 33,
+      "class_name": "Falling rocks",
+      "total_samples": 194,
+      "train_samples": 165,
+      "val_samples": 29
+    },
+    {
+      "class_id": 43,
+      "class_name": "Staggered side road junction",
+      "total_samples": 194,
+      "train_samples": 165,
+      "val_samples": 29
+    },
+    {
+      "class_id": 2,
+      "class_name": "One-way traffic",
+      "total_samples": 195,
+      "train_samples": 166,
+      "val_samples": 29
+    },
+    {
+      "class_id": 52,
+      "class_name": "Bus stop",
+      "total_samples": 202,
+      "train_samples": 172,
+      "val_samples": 30
+    },
+    {
+      "class_id": 5,
+      "class_name": "No entry for cycles",
+      "total_samples": 290,
+      "train_samples": 247,
+      "val_samples": 43
+    },
+    {
+      "class_id": 51,
+      "class_name": "Parking",
+      "total_samples": 516,
+      "train_samples": 439,
+      "val_samples": 77
+    },
+    {
+      "class_id": 20,
+      "class_name": "Horn prohibited",
+      "total_samples": 551,
+      "train_samples": 469,
+      "val_samples": 82
+    },
+    {
+      "class_id": 54,
+      "class_name": "Telephone",
+      "total_samples": 558,
+      "train_samples": 475,
+      "val_samples": 83
+    },
+    {
+      "class_id": 8,
+      "class_name": "No entry for bullock carts",
+      "total_samples": 569,
+      "train_samples": 484,
+      "val_samples": 85
+    },
+    {
+      "class_id": 53,
+      "class_name": "First aid post",
+      "total_samples": 571,
+      "train_samples": 486,
+      "val_samples": 85
+    },
+    {
+      "class_id": 55,
+      "class_name": "Filling station",
+      "total_samples": 580,
+      "train_samples": 493,
+      "val_samples": 87
+    }
+  ]
+}
