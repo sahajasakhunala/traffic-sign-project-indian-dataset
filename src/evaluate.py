@@ -221,7 +221,7 @@ def main():
     plt.close()
     print(f"Confusion Matrix heatmap saved to: {cm_path}")
 
-    # 6. Find and Print Top Confused Pairs
+    # 6. Find and Print Top Confused Pairs & Metrics JSON
     confusion_pairs = collections.defaultdict(int)
     for true, pred in zip(y_true, y_pred):
         if true != pred:
@@ -239,6 +239,31 @@ def main():
         p_label = class_name_map.get(p_int, f"Class {pred_name}")
         print(f"Class {true_name} ({t_label}) ↔ Pred as Class {pred_name} ({p_label}): {count} errors")
     print("-" * 65)
+
+    hard_pairs = [("23","24"), ("24","23"), ("36","37"), ("37","36"), ("42","43"), ("43","42"), ("47","48"), ("48","47"), ("49","50"), ("50","49")]
+    family_errors = {}
+    for (t_idx, p_idx), count in confusion_pairs.items():
+        t_name = class_names[t_idx]
+        p_name = class_names[p_idx]
+        if (t_name, p_name) in hard_pairs:
+            family_errors[f"{t_name}->{p_name}"] = count
+
+    metrics_dict = {
+        "accuracy": round(float(overall_accuracy), 2),
+        "macro_f1": round(float(macro_f1), 2),
+        "weighted_f1": round(float(weighted_f1), 2),
+        "total_samples": int(len(y_true)),
+        "total_errors": int((y_true != y_pred).sum()),
+        "family_errors": family_errors,
+        "checkpoint": args.checkpoint_path,
+        "image_size": args.image_size,
+        "model_type": args.model_type,
+    }
+    metrics_json_path = os.path.join(args.output_dir, "metrics.json")
+    with open(metrics_json_path, 'w', encoding='utf-8') as f:
+        json.dump(metrics_dict, f, indent=4)
+    print(f"Metrics JSON saved to: {metrics_json_path}")
+
 
     # 7. Plot & Save Training Curves from CSV Log
     if args.log_path and os.path.exists(args.log_path):
