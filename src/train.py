@@ -24,6 +24,11 @@ parser.add_argument('--checkpoint_dir', type=str, default="models", help='Direct
 parser.add_argument('--resume', action='store_true', help='Resume training from last checkpoint')
 parser.add_argument('--mixup_alpha', type=float, default=0.3, help='Mixup alpha (0.0 to disable)')
 parser.add_argument('--cutmix_alpha', type=float, default=1.0, help='Cutmix alpha (0.0 to disable)')
+parser.add_argument('--epochs', type=int, default=30, help='Total training epochs')
+parser.add_argument('--lr', type=float, default=3e-4, help='Base learning rate')
+parser.add_argument('--lr_min', type=float, default=1e-5, help='Minimum floor for learning rate decay')
+parser.add_argument('--label_smoothing', type=float, default=0.10, help='Label smoothing factor')
+parser.add_argument('--patience', type=int, default=12, help='Early stopping patience')
 args = parser.parse_args()
 
 DATA_DIR   = args.data_dir
@@ -38,15 +43,16 @@ LOG_PATH   = os.path.join(MODEL_DIR, f"training_log{suffix}.csv")
 # ── Hyperparameters ────────────────────────────────────────────────────────────
 IMAGE_SIZE        = args.image_size
 BATCH_SIZE        = 64
-LR                = 3e-4          # Lower base LR; warmup handles ramp-up
-EPOCHS            = 30            # More epochs — Indian data benefits from longer training
+LR                = args.lr
+LR_MIN            = args.lr_min
+EPOCHS            = args.epochs
 WARMUP_EPOCHS     = 3             # Linear warmup to stabilise early gradient norms
 VAL_SPLIT         = 0.15
-EARLY_STOP_PAT    = 8             # More patience — Indian dataset is noisier
+EARLY_STOP_PAT    = args.patience
 GRAD_CLIP         = 1.0           # Tighter clip for stability on noisy labels
 NUM_WORKERS       = min(4, os.cpu_count() or 1)
 SEED              = 42
-LABEL_SMOOTHING   = 0.10          # Stronger smoothing for noisy/ambiguous signs
+LABEL_SMOOTHING   = args.label_smoothing
 MIXUP_ALPHA       = args.mixup_alpha
 CUTMIX_ALPHA      = args.cutmix_alpha
 USE_WEIGHTED_SAMPLER = True       # UPDATED: Fix class-imbalance with per-sample weights
@@ -248,7 +254,8 @@ def get_lr(epoch: int, warmup_epochs: int, total_epochs: int, base_lr: float) ->
     if epoch <= warmup_epochs:
         return base_lr * epoch / warmup_epochs
     progress = (epoch - warmup_epochs) / (total_epochs - warmup_epochs)
-    return base_lr * (1 + math.cos(math.pi * progress)) / 2
+    cosine_decay = base_lr * (1 + math.cos(math.pi * progress)) / 2
+    return max(LR_MIN, cosine_decay)
 
 
 # ── Train / evaluate loops ─────────────────────────────────────────────────────
