@@ -237,7 +237,7 @@ def main():
         p_int = int(pred_name) if pred_name.isdigit() else pred_cls
         t_label = class_name_map.get(t_int, f"Class {true_name}")
         p_label = class_name_map.get(p_int, f"Class {pred_name}")
-        print(f"Class {true_name} ({t_label}) ↔ Pred as Class {pred_name} ({p_label}): {count} errors")
+        print(f"Class {true_name} ({t_label}) -> Pred as Class {pred_name} ({p_label}): {count} errors")
     print("-" * 65)
 
     hard_pairs = [("23","24"), ("24","23"), ("36","37"), ("37","36"), ("42","43"), ("43","42"), ("47","48"), ("48","47"), ("49","50"), ("50","49")]

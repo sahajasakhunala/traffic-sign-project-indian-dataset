@@ -5,11 +5,11 @@ import pandas as pd
 
 
 HARD_FAMILIES = [
-    (("23", "24"), ("24", "23"), "23 ↔ 24 (Turn Left / Right)"),
-    (("36", "37"), ("37", "36"), "36 ↔ 37 (Side Road Junction Left / Right)"),
-    (("42", "43"), ("43", "42"), "42 ↔ 43 (Staggered Junction Left / Right)"),
-    (("47", "48"), ("48", "47"), "47 ↔ 48 (Countdown Marker 3 vs 2 bars)"),
-    (("49", "50"), ("50", "49"), "49 ↔ 50 (Countdown Marker 2 vs 1 bar)"),
+    (("23", "24"), ("24", "23"), "23 <-> 24 (Turn Left / Right)"),
+    (("36", "37"), ("37", "36"), "36 <-> 37 (Side Road Junction Left / Right)"),
+    (("42", "43"), ("43", "42"), "42 <-> 43 (Staggered Junction Left / Right)"),
+    (("47", "48"), ("48", "47"), "47 <-> 48 (Countdown Marker 3 vs 2 bars)"),
+    (("49", "50"), ("50", "49"), "49 <-> 50 (Countdown Marker 2 vs 1 bar)"),
 ]
 
 
@@ -48,9 +48,9 @@ def main():
     err_base  = m_base.get("total_errors", 0)
     err_exp   = m_exp.get("total_errors", 0)
 
-    print(f"  Overall Accuracy : {acc_base:.2f}%  →  {acc_exp:.2f}%  (Delta: {acc_exp - acc_base:+.2f}%)")
-    print(f"  Macro-F1 Score   : {f1_base:.2f}%  →  {f1_exp:.2f}%  (Delta: {f1_exp - f1_base:+.2f}%)")
-    print(f"  Total Errors     : {err_base}  →  {err_exp}  (Delta: {err_exp - err_base:+d})")
+    print(f"  Overall Accuracy : {acc_base:.2f}%  ->  {acc_exp:.2f}%  (Delta: {acc_exp - acc_base:+.2f}%)")
+    print(f"  Macro-F1 Score   : {f1_base:.2f}%  ->  {f1_exp:.2f}%  (Delta: {f1_exp - f1_base:+.2f}%)")
+    print(f"  Total Errors     : {err_base}  ->  {err_exp}  (Delta: {err_exp - err_base:+d})")
     print("-" * 80)
 
     print(f"\n  FIVE HARD CONFUSION FAMILIES BREAKDOWN:")
