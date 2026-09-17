@@ -121,13 +121,16 @@ def main():
     
     # Clean up keys if needed (in case of DataParallel or mismatched prefixes)
     cleaned_state_dict = {}
+    model_state = model.state_dict()
     for k, v in state_dict.items():
-        if k.startswith("module."):
-            cleaned_state_dict[k[7:]] = v
+        key = k[7:] if k.startswith("module.") else k
+        if key in model_state and model_state[key].shape == v.shape:
+            cleaned_state_dict[key] = v
         else:
-            cleaned_state_dict[k] = v
+            print(f"  [WARN] Skipping checkpoint key '{k}' due to shape mismatch or missing symbol.")
 
-    model.load_state_dict(cleaned_state_dict)
+    msg = model.load_state_dict(cleaned_state_dict, strict=False)
+    print(f"  Checkpoint load status: {msg}")
     model.eval()
 
     # 3. Predict on Validation Set
