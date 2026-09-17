@@ -1,0 +1,21 @@
+{
+    "accuracy": 95.13,
+    "macro_f1": 92.96,
+    "weighted_f1": 94.88,
+    "total_samples": 1909,
+    "total_errors": 93,
+    "family_errors": {
+        "23->24": 5,
+        "24->23": 20,
+        "36->37": 3,
+        "37->36": 20,
+        "42->43": 12,
+        "43->42": 4,
+        "47->48": 8,
+        "48->47": 3,
+        "50->49": 14
+    },
+    "checkpoint": "models_exp1/traffic_sign_resnet50_finetuned.pth",
+    "image_size": 128,
+    "model_type": "resnet50"
+}

@@ -1,0 +1,59 @@
+class_id,class_name,precision,recall,f1_score,support
+0,Give way,100.0,100.0,100.0,28
+1,No entry,100.0,100.0,100.0,27
+10,No entry for motor vehicles,100.0,100.0,100.0,28
+11,Height limit,100.0,100.0,100.0,27
+12,Weight limit,100.0,100.0,100.0,27
+13,Axle weight limit,100.0,100.0,100.0,27
+14,Length limit,100.0,96.43,98.18,28
+15,No left turn,100.0,100.0,100.0,28
+16,No right turn,100.0,100.0,100.0,27
+17,No overtaking,100.0,100.0,100.0,26
+18,Maximum speed limit (90 km/h),100.0,100.0,100.0,28
+19,Maximum speed limit (110 km/h),100.0,100.0,100.0,28
+2,One-way traffic,100.0,100.0,100.0,29
+20,Horn prohibited,100.0,100.0,100.0,82
+21,No parking,100.0,100.0,100.0,27
+22,No stopping,88.0,100.0,93.62,22
+23,Turn left,53.49,82.14,64.79,28
+24,Turn right,54.55,23.08,32.43,26
+25,Steep descent,96.55,100.0,98.25,28
+26,Steep ascent,100.0,100.0,100.0,27
+27,Narrow road,100.0,100.0,100.0,27
+28,Narrow bridge,100.0,100.0,100.0,27
+29,Unprotected quay,100.0,100.0,100.0,26
+3,One-way traffic,100.0,100.0,100.0,28
+30,Road hump,100.0,100.0,100.0,28
+31,Dip,100.0,100.0,100.0,28
+32,Loose gravel,100.0,100.0,100.0,27
+33,Falling rocks,100.0,100.0,100.0,29
+34,Cattle,100.0,100.0,100.0,28
+35,Crossroads,100.0,100.0,100.0,27
+36,Side road junction,54.55,88.89,67.61,27
+37,Side road junction,72.73,28.57,41.03,28
+38,Oblique side road junction,100.0,100.0,100.0,28
+4,No vehicles in both directions,100.0,100.0,100.0,27
+40,T-junction,100.0,100.0,100.0,28
+41,Y-junction,100.0,100.0,100.0,27
+42,Staggered side road junction,77.78,51.85,62.22,27
+43,Staggered side road junction,67.57,86.21,75.76,29
+44,Roundabout,100.0,100.0,100.0,28
+45,Guarded level crossing ahead,100.0,100.0,100.0,27
+46,Unguarded level crossing ahead,100.0,100.0,100.0,28
+47,Level crossing countdown marker,80.0,60.0,68.57,20
+48,Level crossing countdown marker,71.43,86.96,78.43,23
+49,Level crossing countdown marker,33.33,100.0,50.0,7
+5,No entry for cycles,100.0,100.0,100.0,43
+50,Level crossing countdown marker,100.0,46.15,63.16,26
+51,Parking,100.0,100.0,100.0,77
+52,Bus stop,100.0,100.0,100.0,30
+53,First aid post,100.0,100.0,100.0,85
+54,Telephone,100.0,100.0,100.0,83
+55,Filling station,100.0,100.0,100.0,87
+56,Hotel,100.0,100.0,100.0,27
+57,Restaurant,100.0,96.43,98.18,28
+58,Refreshments,100.0,100.0,100.0,27
+6,No entry for goods vehicles,100.0,100.0,100.0,28
+7,No entry for pedestrians,100.0,100.0,100.0,29
+8,No entry for bullock carts,100.0,98.82,99.41,85
+9,No entry for hand carts,100.0,100.0,100.0,27
