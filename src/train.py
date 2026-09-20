@@ -30,6 +30,7 @@ parser.add_argument('--lr_min', type=float, default=1e-5, help='Minimum floor fo
 parser.add_argument('--label_smoothing', type=float, default=0.10, help='Label smoothing factor')
 parser.add_argument('--patience', type=int, default=12, help='Early stopping patience')
 parser.add_argument('--use_targeted_aug', action='store_true', help='Enable sign-specific targeted augmentation for hard classes')
+parser.add_argument('--use_balanced_sampler', action='store_true', help='Enable class-balanced weighted random sampling')
 args = parser.parse_args()
 
 DATA_DIR   = args.data_dir
@@ -56,7 +57,7 @@ SEED              = 42
 LABEL_SMOOTHING   = args.label_smoothing
 MIXUP_ALPHA       = args.mixup_alpha
 CUTMIX_ALPHA      = args.cutmix_alpha
-USE_WEIGHTED_SAMPLER = True       # UPDATED: Fix class-imbalance with per-sample weights
+USE_WEIGHTED_SAMPLER = args.use_balanced_sampler
 
 # ── Device ─────────────────────────────────────────────────────────────────────
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -68,41 +69,33 @@ if device.type == "cuda":
     torch.backends.cudnn.benchmark = True
 
 
-# ── Transforms ─────────────────────────────────────────────────────────────────
-# UPDATED: Heavier augmentation targeting real Indian road conditions:
-#   • Stronger colour jitter  → handles dust haze, glare, and mixed lighting
-#   • GaussianBlur            → motion blur from fast-moving vehicles
-#   • RandomPerspective       → signs viewed at sharp angles (elevated, tilted posts)
-#   • RandomGrayscale         → teaches colour-invariant shape features
-#   • RandomErasing           → occlusion by vehicles, foliage, stickers
-train_transform = transforms.Compose([
-    transforms.Resize((IMAGE_SIZE + 8, IMAGE_SIZE + 8)),   # slight oversize for random crop
-    transforms.RandomCrop(IMAGE_SIZE),                      # random-crop replaces simple resize
-    # Removed RandomHorizontalFlip(p=0.1) to avoid confusing left/right directional signs (e.g. 23 <-> 24)
-    transforms.RandomRotation(degrees=20),                  # UPDATED: wider rotation
-    transforms.RandomAffine(
-        degrees=0,
-        translate=(0.12, 0.12),                             # UPDATED: slightly more shift
-        scale=(0.85, 1.15),                                 # UPDATED: wider scale range
-        shear=8,                                            # UPDATED: more shear
-    ),
-    transforms.RandomPerspective(distortion_scale=0.3, p=0.4),  # UPDATED: perspective warp
-    transforms.ColorJitter(
-        brightness=0.5,                                     # UPDATED: stronger — sunlight/shadow
-        contrast=0.4,                                       # UPDATED
-        saturation=0.4,                                     # UPDATED
-        hue=0.08,                                           # UPDATED
-    ),
-    transforms.RandomGrayscale(p=0.08),                    # UPDATED: colour-invariant features
-    transforms.GaussianBlur(kernel_size=3, sigma=(0.1, 1.5)),   # UPDATED: motion/rain blur
-    transforms.ToTensor(),
-    transforms.Normalize(
-        mean=[0.485, 0.456, 0.406],
-        std=[0.229, 0.224, 0.225],
-    ),
-    # UPDATED: Random erasing simulates stickers, damage, partial occlusion
-    transforms.RandomErasing(p=0.25, scale=(0.02, 0.15), ratio=(0.3, 3.0), value=0),
-])
+if args.use_targeted_aug:
+    train_transform = transforms.Compose([
+        transforms.Resize((IMAGE_SIZE + 4, IMAGE_SIZE + 4)),
+        transforms.RandomCrop(IMAGE_SIZE),
+        transforms.RandomApply([transforms.RandomRotation(degrees=15)], p=0.30),
+        transforms.RandomApply([transforms.RandomAffine(degrees=0, translate=(0.10, 0.10), scale=(0.9, 1.1), shear=6)], p=0.20),
+        transforms.RandomPerspective(distortion_scale=0.2, p=0.15),
+        transforms.RandomApply([transforms.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.2, hue=0.04)], p=0.20),
+        transforms.RandomApply([transforms.GaussianBlur(kernel_size=3, sigma=(0.1, 1.2))], p=0.10),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+        transforms.RandomErasing(p=0.10, scale=(0.02, 0.10), ratio=(0.3, 3.0), value=0),
+    ])
+else:
+    train_transform = transforms.Compose([
+        transforms.Resize((IMAGE_SIZE + 8, IMAGE_SIZE + 8)),
+        transforms.RandomCrop(IMAGE_SIZE),
+        transforms.RandomRotation(degrees=20),
+        transforms.RandomAffine(degrees=0, translate=(0.12, 0.12), scale=(0.85, 1.15), shear=8),
+        transforms.RandomPerspective(distortion_scale=0.3, p=0.4),
+        transforms.ColorJitter(brightness=0.5, contrast=0.4, saturation=0.4, hue=0.08),
+        transforms.RandomGrayscale(p=0.08),
+        transforms.GaussianBlur(kernel_size=3, sigma=(0.1, 1.5)),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+        transforms.RandomErasing(p=0.25, scale=(0.02, 0.15), ratio=(0.3, 3.0), value=0),
+    ])
 
 val_transform = transforms.Compose([
     transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
