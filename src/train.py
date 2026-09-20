@@ -18,7 +18,7 @@ from model import TrafficSignCNN
 parser = argparse.ArgumentParser()
 parser.add_argument('--data_dir', type=str, default=os.path.join("data", "Indian_Dataset"), help='Path to dataset images folder')
 parser.add_argument('--pretrained_path', type=str, default=None, help='Path to pretrained GTSRB model checkpoint (.pth)')
-parser.add_argument('--model_type', type=str, default='custom_cnn', choices=['custom_cnn', 'resnet50'], help='Model architecture to use')
+parser.add_argument('--model_type', type=str, default='custom_cnn', choices=['custom_cnn', 'resnet50', 'efficientnet_b2', 'efficientnet_b3', 'convnext_tiny'], help='Model architecture to use')
 parser.add_argument('--image_size', type=int, default=64, help='Image height and width for training')
 parser.add_argument('--checkpoint_dir', type=str, default="models", help='Directory to save checkpoints')
 parser.add_argument('--resume', action='store_true', help='Resume training from last checkpoint')
@@ -29,6 +29,7 @@ parser.add_argument('--lr', type=float, default=3e-4, help='Base learning rate')
 parser.add_argument('--lr_min', type=float, default=1e-5, help='Minimum floor for learning rate decay')
 parser.add_argument('--label_smoothing', type=float, default=0.10, help='Label smoothing factor')
 parser.add_argument('--patience', type=int, default=12, help='Early stopping patience')
+parser.add_argument('--use_targeted_aug', action='store_true', help='Enable sign-specific targeted augmentation for hard classes')
 args = parser.parse_args()
 
 DATA_DIR   = args.data_dir
@@ -332,14 +333,9 @@ def main() -> None:
     train_loader, val_loader, num_classes, class_names = build_loaders(DATA_DIR, VAL_SPLIT)
     print("-" * 72)
 
-    if args.model_type == "resnet50":
-        import torchvision.models as tv_models
-        print("  Initializing ResNet50 architecture...")
-        model = tv_models.resnet50(weights=None)
-        in_features = model.fc.in_features
-        model.fc = nn.Linear(in_features, num_classes)
-    else:
-        model = TrafficSignCNN(num_classes=num_classes)
+    from test_models import build_architecture
+    print(f"  Initializing {args.model_type} architecture...")
+    model = build_architecture(args.model_type, num_classes=num_classes)
         
     model = model.to(device)
     

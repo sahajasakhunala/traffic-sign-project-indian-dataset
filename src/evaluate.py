@@ -53,7 +53,7 @@ def stratified_split(dataset: datasets.ImageFolder, val_split: float, seed: int)
 def main():
     parser = argparse.ArgumentParser(description="Evaluate Indian Traffic Sign Model")
     parser.add_argument('--data_dir', type=str, required=True, help='Path to dataset images folder')
-    parser.add_argument('--model_type', type=str, default='resnet50', choices=['custom_cnn', 'resnet50'], help='Model type')
+    parser.add_argument('--model_type', type=str, default='resnet50', choices=['custom_cnn', 'resnet50', 'efficientnet_b2', 'efficientnet_b3', 'convnext_tiny'], help='Model type')
     parser.add_argument('--checkpoint_path', type=str, required=True, help='Path to trained model checkpoint (.pth)')
     parser.add_argument('--image_size', type=int, default=128, help='Image size')
     parser.add_argument('--log_path', type=str, default=None, help='Path to training log CSV')
@@ -105,13 +105,8 @@ def main():
     print(f"Validation set size: {len(val_indices)} samples across {num_classes} classes")
 
     # 2. Load Model
-    if args.model_type == "resnet50":
-        import torchvision.models as tv_models
-        model = tv_models.resnet50(weights=None)
-        in_features = model.fc.in_features
-        model.fc = nn.Linear(in_features, num_classes)
-    else:
-        model = TrafficSignCNN(num_classes=num_classes)
+    from test_models import build_architecture
+    model = build_architecture(args.model_type, num_classes=num_classes)
 
     model = model.to(device)
 
