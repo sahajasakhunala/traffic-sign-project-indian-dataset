@@ -76,17 +76,26 @@ def main():
     c49_rec_base, c49_f1_base = 0.0, 0.0
     c49_rec_exp,  c49_f1_exp  = 0.0, 0.0
 
-    if df_base_c is not None:
-        r49 = df_base_c[df_base_c['class_id'].astype(str) == '49']
-        if not r49.empty:
-            c49_rec_base = float(r49.iloc[0].get('recall', 0.0))
-            c49_f1_base  = float(r49.iloc[0].get('f1_score', 0.0))
+    def match_class49(df):
+        if df is None or df.empty:
+            return None
+        import re
+        for idx, row in df.iterrows():
+            cid_str = str(row.get('class_id', ''))
+            m = re.search(r'\d+', cid_str)
+            if m and int(m.group(0)) == 49:
+                return row
+        return None
 
-    if df_exp_c is not None:
-        r49e = df_exp_c[df_exp_c['class_id'].astype(str) == '49']
-        if not r49e.empty:
-            c49_rec_exp = float(r49e.iloc[0].get('recall', 0.0))
-            c49_f1_exp  = float(r49e.iloc[0].get('f1_score', 0.0))
+    r49 = match_class49(df_base_c)
+    if r49 is not None:
+        c49_rec_base = float(r49.get('recall', 0.0))
+        c49_f1_base  = float(r49.get('f1_score', 0.0))
+
+    r49e = match_class49(df_exp_c)
+    if r49e is not None:
+        c49_rec_exp = float(r49e.get('recall', 0.0))
+        c49_f1_exp  = float(r49e.get('f1_score', 0.0))
 
     print(f"  Class 49 Recall  : {c49_rec_base:.1f}%  ->  {c49_rec_exp:.1f}%  (Delta: {c49_rec_exp - c49_rec_base:+.1f}%)")
     print(f"  Class 49 F1-Score: {c49_f1_base:.1f}%  ->  {c49_f1_exp:.1f}%  (Delta: {c49_f1_exp - c49_f1_base:+.1f}%)")
