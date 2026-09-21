@@ -71,8 +71,28 @@ def build_model(model_type: str, num_classes: int):
     else:
         raise ValueError(f"Unknown model_type: {model_type}")
 
+def resolve_checkpoint_path(path: str) -> str:
+    if os.path.exists(path):
+        return path
+    fname = os.path.basename(path)
+    candidates = [
+        path,
+        os.path.join("/content/models_exp1", fname),
+        os.path.join("/content/models_exp4_effnet_b2", fname),
+        os.path.join("/content", fname),
+        os.path.join("models_exp1", fname),
+        os.path.join("results_baseline", fname),
+        os.path.join("results_baseline", "models_exp1", fname),
+    ]
+    for cand in candidates:
+        if os.path.exists(cand):
+            print(f"[INFO] Resolved checkpoint path: '{path}' -> '{cand}'")
+            return cand
+    raise FileNotFoundError(f"Checkpoint file not found: '{path}'. Checked candidates: {candidates}")
+
 def load_checkpoint(model: nn.Module, checkpoint_path: str, device: torch.device):
-    checkpoint = torch.load(checkpoint_path, map_location=device, weights_only=False)
+    resolved_path = resolve_checkpoint_path(checkpoint_path)
+    checkpoint = torch.load(resolved_path, map_location=device, weights_only=False)
     if isinstance(checkpoint, dict) and 'model_state_dict' in checkpoint:
         state_dict = checkpoint['model_state_dict']
     elif isinstance(checkpoint, dict) and 'state_dict' in checkpoint:
