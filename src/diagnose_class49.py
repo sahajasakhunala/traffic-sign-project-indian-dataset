@@ -1,6 +1,7 @@
 import os
 import argparse
 import collections
+import glob
 import shutil
 import json
 import numpy as np
@@ -71,10 +72,11 @@ def build_model(model_type: str, num_classes: int):
     else:
         raise ValueError(f"Unknown model_type: {model_type}")
 
-def resolve_checkpoint_path(path: str) -> str:
-    if os.path.exists(path):
+def resolve_checkpoint_path(path: str, required: bool = True) -> str:
+    if path and os.path.exists(path):
         return path
-    fname = os.path.basename(path)
+    
+    fname = os.path.basename(path) if path else "*.pth"
     candidates = [
         path,
         os.path.join("/content/models_exp1", fname),
@@ -85,13 +87,40 @@ def resolve_checkpoint_path(path: str) -> str:
         os.path.join("results_baseline", "models_exp1", fname),
     ]
     for cand in candidates:
-        if os.path.exists(cand):
+        if cand and os.path.exists(cand):
             print(f"[INFO] Resolved checkpoint path: '{path}' -> '{cand}'")
             return cand
-    raise FileNotFoundError(f"Checkpoint file not found: '{path}'. Checked candidates: {candidates}")
+
+    # Search for matching .pth files on filesystem
+    search_patterns = [
+        f"/content/**/{fname}",
+        f"./**/{fname}",
+        "/content/**/*.pth",
+        "./**/*.pth",
+    ]
+    found_pth = []
+    for pattern in search_patterns:
+        found_pth.extend(glob.glob(pattern, recursive=True))
+
+    found_pth = sorted(list(set(found_pth)))
+    if found_pth:
+        print(f"[INFO] Located available .pth checkpoints: {found_pth}")
+        # Try matching basename
+        for p in found_pth:
+            if fname.lower() in p.lower():
+                print(f"[INFO] Using matched checkpoint: {p}")
+                return p
+
+    if required:
+        print(f"[WARN] Checkpoint '{path}' could not be resolved.")
+        return None
+    return None
 
 def load_checkpoint(model: nn.Module, checkpoint_path: str, device: torch.device):
-    resolved_path = resolve_checkpoint_path(checkpoint_path)
+    resolved_path = resolve_checkpoint_path(checkpoint_path, required=True)
+    if not resolved_path:
+        return None
+
     checkpoint = torch.load(resolved_path, map_location=device, weights_only=False)
     if isinstance(checkpoint, dict) and 'model_state_dict' in checkpoint:
         state_dict = checkpoint['model_state_dict']
@@ -135,7 +164,7 @@ def evaluate_model_on_val(model: nn.Module, loader: DataLoader, device: torch.de
 def main():
     parser = argparse.ArgumentParser(description="Target Class Diagnostic (Class 49 Focus)")
     parser.add_argument('--data_dir', type=str, required=True, help='Path to clean dataset')
-    parser.add_argument('--baseline_checkpoint', type=str, required=True, help='Baseline model checkpoint (.pth)')
+    parser.add_argument('--baseline_checkpoint', type=str, default=None, help='Baseline model checkpoint (.pth)')
     parser.add_argument('--baseline_model_type', type=str, default='resnet50')
     parser.add_argument('--baseline_image_size', type=int, default=128)
     parser.add_argument('--exp_checkpoint', type=str, required=True, help='Candidate experiment checkpoint (.pth)')
@@ -162,19 +191,24 @@ def main():
     print(f"  Train Samples      : {train_class_samples}")
     print(f"  Validation Samples : {val_class_samples}")
 
-    # Load Baseline Model & Evaluate
-    transform_base = transforms.Compose([
-        transforms.Resize((args.baseline_image_size, args.baseline_image_size)),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-    ])
-    val_subset_base = Subset(base_dataset, val_indices)
-    val_dataset_base = TransformSubset(val_subset_base, transform_base)
-    loader_base = DataLoader(val_dataset_base, batch_size=64, shuffle=False)
-
-    model_base = build_model(args.baseline_model_type, num_classes)
-    model_base = load_checkpoint(model_base, args.baseline_checkpoint, device)
-    targets_base, preds_base, probs_base, paths_base = evaluate_model_on_val(model_base, loader_base, device)
+    # Load Baseline Model & Evaluate (if available)
+    has_baseline = False
+    if args.baseline_checkpoint:
+        model_base = build_model(args.baseline_model_type, num_classes)
+        model_base = load_checkpoint(model_base, args.baseline_checkpoint, device)
+        if model_base is not None:
+            transform_base = transforms.Compose([
+                transforms.Resize((args.baseline_image_size, args.baseline_image_size)),
+                transforms.ToTensor(),
+                transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+            ])
+            val_subset_base = Subset(base_dataset, val_indices)
+            val_dataset_base = TransformSubset(val_subset_base, transform_base)
+            loader_base = DataLoader(val_dataset_base, batch_size=64, shuffle=False)
+            targets_base, preds_base, probs_base, paths_base = evaluate_model_on_val(model_base, loader_base, device)
+            has_baseline = True
+        else:
+            print(f"[WARN] Baseline checkpoint '{args.baseline_checkpoint}' not found. Running candidate diagnostic only.")
 
     # Load Exp Model & Evaluate
     transform_exp = transforms.Compose([
@@ -188,6 +222,9 @@ def main():
 
     model_exp = build_model(args.exp_model_type, num_classes)
     model_exp = load_checkpoint(model_exp, args.exp_checkpoint, device)
+    if model_exp is None:
+        raise FileNotFoundError(f"Candidate experiment checkpoint '{args.exp_checkpoint}' could not be loaded!")
+
     targets_exp, preds_exp, probs_exp, paths_exp = evaluate_model_on_val(model_exp, loader_exp, device)
 
     # Function to compute target class metrics
@@ -226,8 +263,9 @@ def main():
             'probs_for_actual': probs_for_actual,
         }
 
-    m_base = compute_class_metrics(targets_base, preds_base, probs_base, args.target_class)
-    m_exp  = compute_class_metrics(targets_exp, preds_exp, probs_exp, args.target_class)
+    m_exp = compute_class_metrics(targets_exp, preds_exp, probs_exp, args.target_class)
+    if has_baseline:
+        m_base = compute_class_metrics(targets_base, preds_base, probs_base, args.target_class)
 
     # Build Diagnostic Report
     report_md = f"""# Diagnostic Report: Class {args.target_class} Prediction Breakdown
@@ -239,8 +277,10 @@ def main():
 
 ---
 
-## 2. Model Performance Comparison (Class {args.target_class})
-
+## 2. Model Performance Summary (Class {args.target_class})
+"""
+    if has_baseline:
+        report_md += f"""
 | Metric | Baseline ({args.baseline_model_type}) | Candidate ({args.exp_model_type}) | Delta |
 |---|:---:|:---:|:---:|
 | **Total Actual Val Samples** | {m_base['total_actual']} | {m_exp['total_actual']} | 0 |
@@ -251,16 +291,30 @@ def main():
 | **Recall** | **{m_base['recall']*100:.2f}%** | **{m_exp['recall']*100:.2f}%** | **{(m_exp['recall'] - m_base['recall'])*100:+.2f}%** |
 | **Precision** | **{m_base['precision']*100:.2f}%** | **{m_exp['precision']*100:.2f}%** | **{(m_exp['precision'] - m_base['precision'])*100:+.2f}%** |
 | **F1-Score** | **{m_base['f1']*100:.2f}%** | **{m_exp['f1']*100:.2f}%** | **{(m_exp['f1'] - m_base['f1'])*100:+.2f}%** |
+"""
+    else:
+        report_md += f"""
+| Metric | Candidate ({args.exp_model_type}) |
+|---|:---:|
+| **Total Actual Val Samples** | {m_exp['total_actual']} |
+| **Total Predictions Made as Class {args.target_class}** | {m_exp['total_predicted']} |
+| **True Positives (TP)** | {m_exp['tp']} |
+| **False Positives (FP)** | {m_exp['fp']} |
+| **False Negatives (FN)** | {m_exp['fn']} |
+| **Recall** | **{m_exp['recall']*100:.2f}%** |
+| **Precision** | **{m_exp['precision']*100:.2f}%** |
+| **F1-Score** | **{m_exp['f1']*100:.2f}%** |
+"""
 
----
+    report_md += f"""\n---
 
 ## 3. Destination Analysis: What were actual Class {args.target_class} samples predicted as?
-
-### Baseline ({args.baseline_model_type}):
 """
-    for pred_cls, count in m_base['pred_counts'].most_common():
-        pct = (count / m_base['total_actual']) * 100
-        report_md += f"- **Predicted as Class {pred_cls}**: {count} samples ({pct:.1f}%)\n"
+    if has_baseline:
+        report_md += f"\n### Baseline ({args.baseline_model_type}):\n"
+        for pred_cls, count in m_base['pred_counts'].most_common():
+            pct = (count / m_base['total_actual']) * 100
+            report_md += f"- **Predicted as Class {pred_cls}**: {count} samples ({pct:.1f}%)\n"
 
     report_md += f"\n### Candidate ({args.exp_model_type}):\n"
     for pred_cls, count in m_exp['pred_counts'].most_common():
